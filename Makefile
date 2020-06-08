@@ -38,7 +38,7 @@ all: $(NAME)
 
 $(NAME): ${OBJ} ${OBJ_GNL} ${OBJ_PRINTF}
 	@${CC} ${OBJ} ${OBJ_GNL} ${OBJ_PRINTF} ${CFLAGS} -o ${NAME}
-	@echo "\033[32;1m\rminishell by Violetta Goldman and Tom Marx is done ${TICK}          "
+	@echo "\033[32;1m\rminishell by Violetta Goldman and Tom Marx is done ${TICK}          \033[0m"
 
 ./obj/get_next_line/%.o: ./src/get_next_line/%.c
 	@mkdir -p ./obj/get_next_line
@@ -55,7 +55,7 @@ $(NAME): ${OBJ} ${OBJ_GNL} ${OBJ_PRINTF}
 	@${CC} ${CFLAGS} -c $< -o $@
 	@$(call update)
 
-run:
+run: ${NAME}
 	@./${NAME}
 
 norme:
