@@ -5,13 +5,13 @@
 # define BOLD "\e[1m"
 # define RESET "\e[0m"
 
-typedef		s_cmd
+typedef struct	s_cmd
 {
 	char	*cmd;
 	char	**args;
 	int		*in;
 	int		*out;
-}			t_cmd;
+}				t_cmd;
 
 /* minishell */
 void	prompt(void);
