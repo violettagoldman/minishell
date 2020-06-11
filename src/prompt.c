@@ -1,5 +1,4 @@
 #include "minishell.h"
-#include "get_next_line.h"
 
 void	print_prompt(void)
 {
@@ -11,7 +10,7 @@ void	read_command(char **buffer)
 	get_next_line(0, buffer);
 }
 
-void	prompt(void)
+void	prompt(t_cmd line)
 {
 	char	*cmd;
 
@@ -19,9 +18,9 @@ void	prompt(void)
 	{
 		print_prompt();
 		read_command(&cmd);
+		exec_cmd(line);
 		if (!(ft_strcmp(cmd, "exit")))
 			exit(0);
-		ft_printf("%s\n", cmd);
 		free(cmd);
 	}
 }
