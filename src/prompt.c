@@ -21,7 +21,7 @@ void	prompt(void)
 		read_command(&cmd);
 		if (!(ft_strcmp(cmd, "exit")))
 			exit(0);
-		ft_printf("%s\n", cmd);
+		parse_input(cmd);
 		free(cmd);
 	}
 }
