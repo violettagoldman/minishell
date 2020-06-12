@@ -3,6 +3,7 @@
 # include <unistd.h>
 # include <sys/types.h>
 # include <stdlib.h>
+# include "signal.h"
 # include "libftprintf.h"
 # include "get_next_line.h"
 # define BOLD "\e[1m"
@@ -24,6 +25,9 @@ void	parse_input(char *cmd);
 t_cmd	parse_command(char *cmd);
 void	print_cmd(t_cmd cmd);
 t_cmd	*parse_commands_pipe(char *cmd);
+
+/* signals */
+void	handle_signals(void);
 
 /* libft */
 int		ft_strcmp(char *s1, char *s2);

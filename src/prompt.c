@@ -17,6 +17,7 @@ void	prompt(void)
 	while (1)
 	{
 		print_prompt();
+		handle_signals();
 		read_command(&cmd);
 		if (!(ft_strcmp(cmd, "exit")))
 			exit(0);
