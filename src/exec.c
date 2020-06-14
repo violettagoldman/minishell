@@ -1,9 +1,11 @@
 #include "minishell.h"
 
+extern t_minishell g_minishell;
+
 int		exec_cmd(t_cmd cmd)
 {
-	pid_t	pid;
-	int		exec_res;
+	pid_t		pid;
+	int			exec_res;
 
 	pid = fork();
 	if (!pid && (exec_res = execve(cmd.cmd, cmd.args, &cmd.envp) < 0))
@@ -11,6 +13,9 @@ int		exec_cmd(t_cmd cmd)
 	else if (pid < 0)
 		ft_printf("Fork error\n");
 	else
+	{
+		g_minishell.pid = pid;
 		wait(&pid);
+	}
 	return (1);
 }
