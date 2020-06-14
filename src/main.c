@@ -3,8 +3,11 @@
 
 t_minishell g_minishell;
 
-int main(void)
+int main(int argc, char **argv, char **envp)
 {
+	(void)argc;
+	(void)argv;
+	g_minishell.envp = envp;
 	ft_printf("\e[1;1H\e[2J");
 	prompt();
 	return (0);

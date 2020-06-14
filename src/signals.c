@@ -4,11 +4,9 @@ extern t_minishell g_minishell;
 
 void	handle_ctrl_c(int signal)
 {
+	ft_printf("\n");
 	if (!g_minishell.pid)
-	{
-		ft_printf("\n");
 		print_prompt();
-	}
 	else
 		kill(g_minishell.pid, signal);
 }
