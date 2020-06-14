@@ -16,6 +16,7 @@ int		exec_cmd(t_cmd cmd)
 	{
 		g_minishell.pid = pid;
 		wait(&pid);
+		g_minishell.pid = 0;
 	}
 	return (1);
 }

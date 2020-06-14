@@ -33,6 +33,7 @@ void	parse_input(char *cmd);
 t_cmd	parse_command(char *cmd);
 void	print_cmd(t_cmd cmd);
 t_cmd	*parse_commands_pipe(char *cmd);
+void	print_prompt(void);
 
 /* signals */
 void	handle_signals(void);

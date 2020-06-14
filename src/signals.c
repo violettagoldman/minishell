@@ -4,7 +4,13 @@ extern t_minishell g_minishell;
 
 void	handle_ctrl_c(int signal)
 {
-	kill(g_minishell.pid, signal);
+	if (!g_minishell.pid)
+	{
+		ft_printf("\n");
+		print_prompt();
+	}
+	else
+		kill(g_minishell.pid, signal);
 }
 
 void	handle_ctrl_backslash(int signal)

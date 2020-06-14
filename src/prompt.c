@@ -1,5 +1,10 @@
 #include "minishell.h"
 
+void	quit(void)
+{
+	exit(0);
+}
+
 void	print_prompt(void)
 {
 	ft_printf(BOLD"$ "RESET);
@@ -7,7 +12,8 @@ void	print_prompt(void)
 
 void	read_command(char **buffer)
 {
-	get_next_line(0, buffer);
+	if (!get_next_line(0, buffer))
+		quit();
 }
 
 void	prompt(void)
@@ -19,8 +25,8 @@ void	prompt(void)
 		print_prompt();
 		handle_signals();
 		read_command(&cmd);
-		if (!(ft_strcmp(cmd, "exit")) || *cmd == EOF)
-			exit(0);
+		if (!(ft_strcmp(cmd, "exit")))
+			quit();
 		parse_input(cmd);
 	}
 }
