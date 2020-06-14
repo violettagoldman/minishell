@@ -67,7 +67,7 @@ t_cmd	parse_command(char *cmd)
 	res.cmd = pieces[0];
 	while (pieces[i] != NULL)
 		i++;
-	if (!(res.args = ft_calloc(i + 2, sizeof(char *))))
+	if (!(res.args = ft_calloc(i + 1, sizeof(char *))))
 	{
 		// HANDLE MALLOC ERROR
 		return (res);
@@ -78,6 +78,7 @@ t_cmd	parse_command(char *cmd)
 		res.args[i] = pieces[i];
 		i++;
 	}
-	pieces[i] = NULL;
+	res.args[i] = NULL;
+	res.envp = NULL;
 	return (res);
 }

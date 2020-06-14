@@ -2,6 +2,8 @@
 # define MINISHELL_H
 # include <unistd.h>
 # include <sys/types.h>
+# include <errno.h>
+# include <string.h>
 # include <stdlib.h>
 # include "libftprintf.h"
 # include "get_next_line.h"
