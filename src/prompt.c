@@ -19,7 +19,7 @@ void	prompt(void)
 		print_prompt();
 		handle_signals();
 		read_command(&cmd);
-		if (!(ft_strcmp(cmd, "exit")))
+		if (!(ft_strcmp(cmd, "exit")) || *cmd == EOF)
 			exit(0);
 		parse_input(cmd);
 	}

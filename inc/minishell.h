@@ -3,6 +3,7 @@
 # include <unistd.h>
 # include <sys/types.h>
 # include <stdlib.h>
+# include <stdio.h>
 # include "signal.h"
 # include "libftprintf.h"
 # include "get_next_line.h"
@@ -17,6 +18,11 @@ typedef struct	s_cmd
 	int		*in;
 	int		*out;
 }				t_cmd;
+
+typedef struct	s_minishell
+{
+	pid_t	pid;
+}				t_minishell;
 
 /* minishell */
 void	prompt(void);
