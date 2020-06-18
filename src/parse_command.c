@@ -17,7 +17,11 @@ void	parse_input(char *input)
 		cmds = parse_commands_pipe(commands[i++]);
 		j = 0;
 		while (cmds[j].cmd != NULL)
-			exec_cmd(cmds[j++]);
+		{
+			if (!builtin(cmds[j]))
+				exec_cmd(cmds[j]);
+			j++;
+		}
 	}
 }
 
@@ -67,6 +71,7 @@ t_cmd	parse_command(char *cmd)
 	res.cmd = pieces[0];
 	while (pieces[i] != NULL)
 		i++;
+	res.argc = i;
 	if (!(res.args = ft_calloc(i + 1, sizeof(char *))))
 	{
 		// HANDLE MALLOC ERROR

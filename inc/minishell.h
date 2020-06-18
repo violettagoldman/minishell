@@ -2,6 +2,7 @@
 # define MINISHELL_H
 # include <unistd.h>
 # include <sys/types.h>
+# include <sys/stat.h>
 # include <errno.h>
 # include <string.h>
 # include <stdlib.h>
@@ -19,11 +20,13 @@ typedef struct	s_cmd
 	char	*envp;
 	int		*in;
 	int		*out;
+	int		argc;
 }				t_cmd;
 
 typedef struct	s_minishell
 {
 	pid_t	pid;
+	char	**envp;
 }				t_minishell;
 
 /* minishell */
@@ -38,8 +41,24 @@ void	print_prompt(void);
 /* signals */
 void	handle_signals(void);
 
+/* env */
+char	*get_env(char *key);
+char	*get_path(char *cmd);
+
+/* built-ins */
+int		builtin(t_cmd cmd);
+void	ft_echo(t_cmd cmd);
+void	ft_cd(t_cmd cmd);
+void	ft_export(void);
+void	ft_unset(void);
+void	ft_env(void);
+void	ft_pwd(void);
+void	quit(void);
+
 /* libft */
 int		ft_strcmp(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*ft_strcat(char *dest, char *src);
 
 #endif

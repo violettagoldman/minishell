@@ -25,8 +25,6 @@ void	prompt(void)
 		print_prompt();
 		handle_signals();
 		read_command(&cmd);
-		if (!(ft_strcmp(cmd, "exit")))
-			quit();
 		parse_input(cmd);
 	}
 }
