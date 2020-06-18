@@ -1,5 +1,21 @@
 #include "minishell.h"
 
+char	*current_directory(void)
+{
+	char	buffer[1000];
+	char	**dirs;
+	int		i;
+
+	i = 0;
+	getcwd(buffer, 1000);
+	if (!ft_strcmp(buffer, "/"))
+		return ("/");
+	else
+		dirs = ft_split(buffer, '/');
+	while (dirs[i++]);
+	return (dirs[i - 2]);
+}
+
 void	quit(void)
 {
 	exit(0);
@@ -7,7 +23,7 @@ void	quit(void)
 
 void	print_prompt(void)
 {
-	ft_printf(BOLD"$ "RESET);
+	ft_printf(BOLD CYAN"%s"RESET BOLD" $ "RESET, current_directory());
 }
 
 void	read_command(char **buffer)

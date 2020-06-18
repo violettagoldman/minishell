@@ -9,8 +9,10 @@ char	*get_path(char *cmd)
 	char		*file_name;
 
 	paths = ft_split(get_env("PATH="), ':');
+	if (!stat(cmd, &buffer))
+			return (cmd);
 	while (*paths)
-	{	
+	{
 		if (!(file_name = (char *)ft_calloc(sizeof(char),
 			(ft_strlen(cmd) + ft_strlen(*paths) + 2))))
 			return (NULL);

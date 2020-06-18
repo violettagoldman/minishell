@@ -11,12 +11,13 @@
 # include "libftprintf.h"
 # include "get_next_line.h"
 # define BOLD "\e[1m"
+# define CYAN "\e[36m"
 # define RESET "\e[0m"
 
 typedef struct	s_cmd
 {
-	char	*cmd;
 	char	**args;
+	char	*cmd;
 	char	*envp;
 	int		*in;
 	int		*out;
@@ -51,8 +52,8 @@ void	ft_echo(t_cmd cmd);
 void	ft_cd(t_cmd cmd);
 void	ft_export(void);
 void	ft_unset(void);
-void	ft_env(void);
-void	ft_pwd(void);
+void	ft_env(t_cmd cmd);
+void	ft_pwd(t_cmd cmd);
 void	quit(void);
 
 /* libft */

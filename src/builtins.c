@@ -27,13 +27,21 @@ void	ft_echo(t_cmd cmd)
 
 void	ft_cd(t_cmd cmd)
 {
-	(void)cmd;
-	ft_printf("cd");
+	if (cmd.argc == 1)
+		chdir(get_env("HOME="));
+	else if (cmd.argc > 2)
+		ft_printf("cd: too many arguments\n");
+	else
+		chdir(cmd.args[1]);
 }
 
-void	ft_pwd(void)
+void	ft_pwd(t_cmd cmd)
 {
-	ft_printf("pwd");
+	char buffer[1000];
+	if (cmd.argc == 1)
+		ft_printf("%s\n", getcwd(buffer, 1000));
+	else
+		ft_printf("pwd: too many arguments\n");
 }
 
 void	ft_export(void)
@@ -48,13 +56,13 @@ int		builtin(t_cmd cmd)
 	else if (!ft_strcmp(cmd.cmd, "cd"))
 		ft_cd(cmd);
 	else if (!ft_strcmp(cmd.cmd, "pwd"))
-		ft_pwd();
+		ft_pwd(cmd);
 	else if (!ft_strcmp(cmd.cmd, "export"))
 		ft_export();
 	else if (!ft_strcmp(cmd.cmd, "unset"))
 		ft_unset();
 	else if (!ft_strcmp(cmd.cmd, "env"))
-		ft_env();
+		ft_env(cmd);
 	else if (!ft_strcmp(cmd.cmd, "exit"))
 		quit();
 	else

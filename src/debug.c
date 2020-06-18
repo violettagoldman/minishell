@@ -11,5 +11,5 @@ void	print_cmd(t_cmd cmd)
 		ft_printf("%d: '%s' ", i, cmd.args[i]);
 		i++;
 	}
-	ft_printf("\n");
+	ft_printf("argc: %d\n", cmd.argc);
 }
