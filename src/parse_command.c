@@ -84,6 +84,5 @@ t_cmd	parse_command(char *cmd)
 		i++;
 	}
 	res.args[i] = NULL;
-	res.envp = NULL;
 	return (res);
 }

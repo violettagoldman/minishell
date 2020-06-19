@@ -18,7 +18,6 @@ typedef struct	s_cmd
 {
 	char	**args;
 	char	*cmd;
-	char	*envp;
 	int		*in;
 	int		*out;
 	int		argc;
