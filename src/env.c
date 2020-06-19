@@ -45,3 +45,22 @@ char	*get_env(char *key)
 	}
 	return (NULL);
 }
+
+void	add_env(char *var)
+{
+	char	**envp;
+	int		i;
+
+	i = 0;
+	while (g_minishell.envp[i++]);
+	if (!(envp = (char **)calloc(sizeof(char *), i + 1)))
+		return ;
+	i = 0;
+	while (g_minishell.envp[i])
+	{
+		envp[i] = g_minishell.envp[i];
+		i++;
+	}
+	envp[i] = var;
+	g_minishell.envp = envp;
+}

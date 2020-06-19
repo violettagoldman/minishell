@@ -44,12 +44,13 @@ void	handle_signals(void);
 /* env */
 char	*get_env(char *key);
 char	*get_path(char *cmd);
+void	add_env(char *var);
 
 /* built-ins */
 int		builtin(t_cmd cmd);
 void	ft_echo(t_cmd cmd);
 void	ft_cd(t_cmd cmd);
-void	ft_export(void);
+void	ft_export(t_cmd cmd);
 void	ft_unset(void);
 void	ft_env(t_cmd cmd);
 void	ft_pwd(t_cmd cmd);

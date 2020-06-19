@@ -45,9 +45,16 @@ void	ft_pwd(t_cmd cmd)
 		ft_printf("pwd: too many arguments\n");
 }
 
-void	ft_export(void)
+void	ft_export(t_cmd cmd)
 {
-	ft_printf("export");
+	int i;
+
+	i = 1;
+	if (cmd.argc == 1)
+		ft_env(cmd);
+	else
+		while (i < cmd.argc)
+			add_env(cmd.args[i++]);
 }
 
 int		builtin(t_cmd cmd)
@@ -59,7 +66,7 @@ int		builtin(t_cmd cmd)
 	else if (!ft_strcmp(cmd.cmd, "pwd"))
 		ft_pwd(cmd);
 	else if (!ft_strcmp(cmd.cmd, "export"))
-		ft_export();
+		ft_export(cmd);
 	else if (!ft_strcmp(cmd.cmd, "unset"))
 		ft_unset();
 	else if (!ft_strcmp(cmd.cmd, "env"))
