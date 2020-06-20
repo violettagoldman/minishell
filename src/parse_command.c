@@ -10,6 +10,7 @@ void	parse_input(char *input)
 	int		j;
 	t_cmd	*cmds;
 
+	input = replace(input);
 	i = 0;
 	commands = ft_split(input, ';');
 	while (commands[i] != NULL)

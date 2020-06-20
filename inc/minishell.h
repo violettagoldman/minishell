@@ -48,6 +48,7 @@ char	*get_path(char *cmd);
 void	add_env(char *var);
 void	remove_env(char *var);
 int		equality_sign_check(char *var);
+char	*replace(char *str);
 
 /* built-ins */
 int		builtin(t_cmd cmd);
@@ -64,5 +65,7 @@ int		ft_strcmp(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strcat(char *dest, char *src);
+char	*ft_strjoin(char *s1, char *s2);
+char	*ft_substr(char *s, int start, int len);
 
 #endif
