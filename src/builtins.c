@@ -33,8 +33,6 @@ void	ft_cd(t_cmd cmd)
 		ft_printf("cd: too many arguments\n");
 	else if (chdir(cmd.args[1]) < 0)
 		ft_printf("cd: no such file or directory: %s\n", cmd.args[1]);
-	else
-		chdir(cmd.args[1]);
 }
 
 void	ft_pwd(t_cmd cmd)
