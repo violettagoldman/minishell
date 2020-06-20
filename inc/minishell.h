@@ -13,6 +13,7 @@
 # define BOLD "\e[1m"
 # define CYAN "\e[36m"
 # define GREEN "\e[92m"
+# define RED "\e[91m"
 # define RESET "\e[0m"
 
 typedef struct	s_cmd
@@ -28,6 +29,7 @@ typedef struct	s_minishell
 {
 	pid_t	pid;
 	char	**envp;
+	int		status;
 }				t_minishell;
 
 /* minishell */
@@ -38,6 +40,7 @@ t_cmd	parse_command(char *cmd);
 void	print_cmd(t_cmd cmd);
 t_cmd	*parse_commands_pipe(char *cmd);
 void	print_prompt(void);
+void	set_status(int n);
 
 /* signals */
 void	handle_signals(void);
@@ -67,5 +70,6 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strcat(char *dest, char *src);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_substr(char *s, int start, int len);
+char	*ft_itoa(int n);
 
 #endif

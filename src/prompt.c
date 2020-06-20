@@ -1,5 +1,7 @@
 #include "minishell.h"
 
+extern t_minishell g_minishell;
+
 char	*current_directory(void)
 {
 	char	buffer[1000];
@@ -23,7 +25,10 @@ void	quit(void)
 
 void	print_prompt(void)
 {
-	ft_printf(BOLD GREEN"➜ "CYAN" %s "RESET, current_directory());
+	if (g_minishell.status == 0)
+		ft_printf(BOLD GREEN"➜ "CYAN" %s "RESET, current_directory());
+	else
+		ft_printf(BOLD RED"➜ "CYAN" %s "RESET, current_directory());
 }
 
 void	read_command(char **buffer)
