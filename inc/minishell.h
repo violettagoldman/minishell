@@ -12,6 +12,7 @@
 # include "get_next_line.h"
 # define BOLD "\e[1m"
 # define CYAN "\e[36m"
+# define GREEN "\e[92m"
 # define RESET "\e[0m"
 
 typedef struct	s_cmd
@@ -42,16 +43,18 @@ void	print_prompt(void);
 void	handle_signals(void);
 
 /* env */
-char	*get_env(char *key);
+char	*get_env(char *var);
 char	*get_path(char *cmd);
 void	add_env(char *var);
+void	remove_env(char *var);
+int		equality_sign_check(char *var);
 
 /* built-ins */
 int		builtin(t_cmd cmd);
 void	ft_echo(t_cmd cmd);
 void	ft_cd(t_cmd cmd);
 void	ft_export(t_cmd cmd);
-void	ft_unset(void);
+void	ft_unset(t_cmd cmd);
 void	ft_env(t_cmd cmd);
 void	ft_pwd(t_cmd cmd);
 void	quit(void);

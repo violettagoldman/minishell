@@ -23,7 +23,7 @@ void	quit(void)
 
 void	print_prompt(void)
 {
-	ft_printf(BOLD CYAN"%s"RESET BOLD" $ "RESET, current_directory());
+	ft_printf(BOLD GREEN"➜ "CYAN" %s "RESET, current_directory());
 }
 
 void	read_command(char **buffer)

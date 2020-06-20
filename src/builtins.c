@@ -28,7 +28,7 @@ void	ft_echo(t_cmd cmd)
 void	ft_cd(t_cmd cmd)
 {
 	if (cmd.argc == 1)
-		chdir(get_env("HOME="));
+		chdir(get_env("HOME"));
 	else if (cmd.argc > 2)
 		ft_printf("cd: too many arguments\n");
 	else if (chdir(cmd.args[1]) < 0)
@@ -48,13 +48,21 @@ void	ft_pwd(t_cmd cmd)
 void	ft_export(t_cmd cmd)
 {
 	int i;
+	int sign;
 
 	i = 1;
 	if (cmd.argc == 1)
 		ft_env(cmd);
 	else
 		while (i < cmd.argc)
-			add_env(cmd.args[i++]);
+		{
+			if ((sign = equality_sign_check(cmd.args[i])) == 1)
+				add_env(cmd.args[i]);
+			else if (sign == -1)
+				ft_printf("minishell: export: `%s': not a valid identifier\n",
+						cmd.args[i]);
+			i++;
+		}
 }
 
 int		builtin(t_cmd cmd)
@@ -68,7 +76,7 @@ int		builtin(t_cmd cmd)
 	else if (!ft_strcmp(cmd.cmd, "export"))
 		ft_export(cmd);
 	else if (!ft_strcmp(cmd.cmd, "unset"))
-		ft_unset();
+		ft_unset(cmd);
 	else if (!ft_strcmp(cmd.cmd, "env"))
 		ft_env(cmd);
 	else if (!ft_strcmp(cmd.cmd, "exit"))
