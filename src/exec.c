@@ -22,12 +22,12 @@ int		exec_cmd(t_cmd cmd)
 	pid = fork();
 	if (!pid && (exec_res = execve(get_path(cmd.cmd), cmd.args, g_minishell.envp) < 0))
 	{
-		ft_printf("Exec error %d: %s\n", exec_res, strerror(errno));
+		ft_printf("minishell: %s: command not found\n", cmd.cmd);
 		exit(127);
 	}
 	else if (pid < 0)
 	{
-		ft_printf("Fork error\n");
+		ft_printf("minishell: fork error\n");
 		exit(127);
 	}
 	else

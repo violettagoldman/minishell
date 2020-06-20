@@ -36,9 +36,11 @@ void	ft_cd(t_cmd cmd)
 	else
 		chdir(cmd.args[1]);
 }
+
 void	ft_pwd(t_cmd cmd)
 {
-	char buffer[1000];
+	char	buffer[1000];
+
 	if (cmd.argc == 1)
 		ft_printf("%s\n", getcwd(buffer, 1000));
 	else
