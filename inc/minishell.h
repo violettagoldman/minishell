@@ -41,6 +41,11 @@ void	print_cmd(t_cmd cmd);
 t_cmd	*parse_commands_pipe(char *cmd);
 void	print_prompt(void);
 void	set_status(int n);
+void	encode_command(char *cmd);
+void	handle_quote(int *quote, int *dquote, char *c);
+void	handle_dquote(int *quote, int *dquote, char *c);
+void	handle_letter(int quote, int dquote, char *c);
+void	decode_command(char *str);
 
 /* signals */
 void	handle_signals(void);

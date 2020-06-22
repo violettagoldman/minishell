@@ -1,5 +1,25 @@
 #include "minishell.h"
 
+void	encode_command(char *cmd)
+{
+	int	quote;
+	int	dquote;
+	int	i;
+
+	quote = 0;
+	dquote = 0;
+	i = -1;
+	while (cmd[++i])
+	{
+		if (cmd[i] == '\'')
+			handle_quote(&quote, &dquote, &cmd[i]);
+		else if (cmd[i] == '"')
+			handle_dquote(&quote, &dquote, &cmd[i]);
+		else
+			handle_letter(quote, dquote, &cmd[i]);
+	}
+}
+
 /*
 ** Takes user input and exec command.
 */
@@ -11,6 +31,7 @@ void	parse_input(char *input)
 	t_cmd	*cmds;
 
 	input = replace(input);
+	encode_command(input);
 	i = 0;
 	commands = ft_split(input, ';');
 	while (commands[i] != NULL)
@@ -74,14 +95,12 @@ t_cmd	parse_command(char *cmd)
 		i++;
 	res.argc = i;
 	if (!(res.args = ft_calloc(i + 1, sizeof(char *))))
-	{
-		// HANDLE MALLOC ERROR
 		return (res);
-	}
 	i = 0;
 	while (pieces[i] != NULL)
 	{
 		res.args[i] = pieces[i];
+		decode_command(res.args[i]);
 		i++;
 	}
 	res.args[i] = NULL;
