@@ -75,6 +75,7 @@ t_cmd	*parse_commands_pipe(char *cmd)
 		i++;
 	}
 	cmds[i] = last;
+	io(cmds);
 	return (cmds);
 }
 

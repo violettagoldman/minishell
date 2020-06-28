@@ -12,4 +12,8 @@ void	print_cmd(t_cmd cmd)
 		i++;
 	}
 	ft_printf("argc: %d\n", cmd.argc);
+	ft_printf("in: %d\n", cmd.in);
+	i = 0;
+	while (cmd.out[i] != -1)
+		ft_printf("out: %d\n", cmd.out[i++]);
 }

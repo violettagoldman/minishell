@@ -20,7 +20,10 @@ int		exec_cmd(t_cmd cmd)
 	int		exec_res;
 
 	pid = fork();
-	if (!pid && (exec_res = execve(get_path(cmd.cmd), cmd.args, g_minishell.envp) < 0))
+	if (!pid)
+		redirect(cmd);
+	if (!pid && (exec_res = execve(get_path(cmd.cmd),
+					cmd.args, g_minishell.envp) < 0))
 	{
 		ft_printf("minishell: %s: command not found\n", cmd.cmd);
 		exit(127);
@@ -37,5 +40,6 @@ int		exec_cmd(t_cmd cmd)
 		set_status(WEXITSTATUS(pid));
 		g_minishell.pid = 0;
 	}
+	close_fd(cmd);
 	return (1);
 }

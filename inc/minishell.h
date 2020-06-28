@@ -15,14 +15,15 @@
 # define GREEN "\e[92m"
 # define RED "\e[91m"
 # define RESET "\e[0m"
+# define MAX_OUTPUTS 4096
 
 typedef struct	s_cmd
 {
 	char	**args;
 	char	*cmd;
-	int		*in;
-	int		*out;
 	int		argc;
+	int		out[MAX_OUTPUTS];
+	int		in;
 }				t_cmd;
 
 typedef struct	s_minishell
@@ -46,6 +47,10 @@ void	handle_quote(int *quote, int *dquote, char *c);
 void	handle_dquote(int *quote, int *dquote, char *c);
 void	handle_letter(int quote, int dquote, char *c);
 void	decode_command(char *str);
+void	io(t_cmd *cmds);
+void	add_output(int *fds, int fd);
+void	redirect(t_cmd cmd);
+void	close_fd(t_cmd cmd);
 
 /* signals */
 void	handle_signals(void);
