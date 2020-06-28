@@ -89,6 +89,9 @@ t_cmd	parse_command(char *cmd)
 	t_cmd	res;
 
 	i = 0;
+	while (i < MAX_OUTPUTS)
+		res.out[i++] = -1;
+	i = 0;
 	pieces = ft_split(cmd, ' ');
 	free(cmd);
 	res.cmd = pieces[0];
@@ -105,5 +108,44 @@ t_cmd	parse_command(char *cmd)
 		i++;
 	}
 	res.args[i] = NULL;
+	parse_outputs(&res);
 	return (res);
+}
+
+void	parse_outputs(t_cmd *cmd)
+{
+	int	mode;
+	int	i;
+	int	fd;
+
+	i = 0;
+	mode = 0;
+	while (i < cmd->argc)
+	{
+		if (!ft_strcmp(cmd->args[i], ">"))
+			mode = 1;
+		else if (!ft_strcmp(cmd->args[i], ">>"))
+			mode = 2;
+		else if (mode == 1)
+		{
+			if ((fd = open(cmd->args[i], O_WRONLY | O_CREAT | O_TRUNC, 0666)) < 0)
+				ft_printf("minishell: cannot create %s", cmd->args[i]);
+			else
+				add_output(cmd->out, fd);
+		}
+		else if (mode == 2)
+		{
+			if ((fd = open(cmd->args[i], O_WRONLY | O_CREAT | O_APPEND,
+							0666)) < 0)
+				ft_printf("minishell: cannot create %s", cmd->args[i]);
+			else
+			{
+				add_output(cmd->out, open(cmd->args[i],
+							O_WRONLY | O_CREAT | O_APPEND));
+			}
+		}
+		if (mode > 0)
+			cmd->args[i] = NULL;
+		i++;
+	}
 }

@@ -51,6 +51,7 @@ void	io(t_cmd *cmds);
 void	add_output(int *fds, int fd);
 void	redirect(t_cmd cmd);
 void	close_fd(t_cmd cmd);
+void	parse_outputs(t_cmd *cmd);
 
 /* signals */
 void	handle_signals(void);

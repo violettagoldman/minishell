@@ -4,7 +4,6 @@ void	io(t_cmd *cmds)
 {
 	int	total;
 	int	i;
-	int	j;
 	int	fd[2];
 
 	total = 0;
@@ -13,9 +12,6 @@ void	io(t_cmd *cmds)
 		total++;
 	while (i < total)
 	{
-		j = 0;
-		while (j < MAX_OUTPUTS)
-			cmds[i].out[j++] = -1;
 		if (!i)
 			cmds[i].in = 0;
 		else
@@ -40,6 +36,7 @@ void	add_output(int *fds, int fd)
 	i = 0;
 	while (fds[i] != -1)
 		i++;
+	//ft_printf("add_output: %d %d\n", fd, i);
 	fds[i] = fd;
 }
 
@@ -49,15 +46,11 @@ void	redirect(t_cmd cmd)
 
 	i = 0;
 	if (cmd.in != 0)
-	{
 		dup2(cmd.in, 0);
-	}
 	while (cmd.out[i] != -1)
 	{
 		if (cmd.out[i] != 1)
-		{
 			dup2(cmd.out[i], 1);
-		}
 		i++;
 	}
 }
