@@ -1,6 +1,0 @@
-command: 'pwd'
-args: 0: 'pwd' argc: 1
-in: 0
-out: 3
-out: 1
-/Users/violettagoldman/Documents/minishell
