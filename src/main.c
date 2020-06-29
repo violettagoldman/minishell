@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmarx <tmarx@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/29 13:21:50 by tmarx             #+#    #+#             */
-/*   Updated: 2020/06/29 13:23:09 by tmarx            ###   ########.fr       */
+/*   Created: 2020/06/29 14:58:56 by vgoldman          #+#    #+#             */
+/*   Updated: 2020/06/29 14:59:05 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <string.h>
 
 t_minishell g_minishell;
 

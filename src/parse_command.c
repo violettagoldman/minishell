@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmarx <tmarx@student.42.fr>                +#+  +:+       +#+        */
+/*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/29 13:21:53 by tmarx             #+#    #+#             */
-/*   Updated: 2020/06/29 14:31:56 by tmarx            ###   ########.fr       */
+/*   Created: 2020/06/29 14:58:47 by vgoldman          #+#    #+#             */
+/*   Updated: 2020/06/29 15:07:41 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,35 +145,26 @@ void	parse_outputs(t_cmd *cmd)
 	int	mode;
 	int	i;
 	int	fd;
+	int	flags;
 
-	i = 0;
+	i = -1;
 	mode = 0;
-	while (i < cmd->argc)
+	while (++i < cmd->argc)
 	{
 		if (!ft_strcmp(cmd->args[i], ">"))
 			mode = 1;
 		else if (!ft_strcmp(cmd->args[i], ">>"))
 			mode = 2;
-		else if (mode == 1)
+		else if (mode == 1 || mode == 2)
 		{
-			if ((fd = open(cmd->args[i], O_WRONLY | O_CREAT | O_TRUNC, 0666)) < 0)
+			flags = mode == 1 ?
+				O_WRONLY | O_CREAT | O_TRUNC : O_WRONLY | O_CREAT | O_APPEND;
+			if ((fd = open(cmd->args[i], flags, 0666)) < 0)
 				ft_printf("minishell: cannot create %s", cmd->args[i]);
 			else
 				add_output(cmd->out, fd);
 		}
-		else if (mode == 2)
-		{
-			if ((fd = open(cmd->args[i], O_WRONLY | O_CREAT | O_APPEND,
-							0666)) < 0)
-				ft_printf("minishell: cannot create %s", cmd->args[i]);
-			else
-			{
-				add_output(cmd->out, open(cmd->args[i],
-							O_WRONLY | O_CREAT | O_APPEND));
-			}
-		}
 		if (mode > 0)
 			cmd->args[i] = NULL;
-		i++;
 	}
 }
