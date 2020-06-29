@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:59:41 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/06/29 16:23:13 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/06/29 20:25:56 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,31 +24,34 @@ extern t_minishell g_minishell;
 
 char	*get_path(char *cmd)
 {
-	char		**paths;
+	char				**paths;
 	struct stat	buffer;
-	char		*file_name;
-	int			i;
+	char				*file_name[2];
+	int					i;
 
 	i = 0;
-	paths = ft_split(get_env("PATH"), ':');
+	file_name[1] = get_env("PATH");
+	paths = ft_split(file_name[1], ':');
 	if (!stat(cmd, &buffer))
 		return (cmd);
 	while (paths[i])
 	{
-		if (!(file_name = (char *)ft_calloc(sizeof(char),
+		if (!(file_name[0] = (char *)ft_calloc(sizeof(char),
 			(ft_strlen(cmd) + ft_strlen(paths[i]) + 2))))
 			return (NULL);
-		file_name = ft_strcat(file_name, paths[i]);
-		file_name = ft_strcat(file_name, "/");
-		file_name = ft_strcat(file_name, cmd);
-		if (!stat(file_name, &buffer))
+		file_name[0] = ft_strcat(file_name[0], paths[i]);
+		file_name[0] = ft_strcat(file_name[0], "/");
+		file_name[0] = ft_strcat(file_name[0], cmd);
+		if (!stat(file_name[0], &buffer))
 		{
+			free(file_name[1]);
 			free_splits(paths);
-			return (file_name);
+			return (file_name[0]);
 		}
-		free(file_name);
+		free(file_name[0]);
 		i++;
 	}
+	free(file_name[1]);
 	free_splits(paths);
 	return (NULL);
 }
