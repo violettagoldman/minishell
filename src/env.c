@@ -1,6 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmarx <tmarx@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/29 13:21:34 by tmarx             #+#    #+#             */
+/*   Updated: 2020/06/29 14:12:32 by tmarx            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 extern t_minishell g_minishell;
+
+/*
+** Get the full path of a given binary.
+** 'ls' gives '/bin/ls'
+** '/bin/ls' gives '/bin/ls'
+** @param	cmd	the binary name
+** @return		the full path of the binary
+*/
 
 char	*get_path(char *cmd)
 {
@@ -10,7 +30,7 @@ char	*get_path(char *cmd)
 
 	paths = ft_split(get_env("PATH"), ':');
 	if (!stat(cmd, &buffer))
-			return (cmd);
+		return (cmd);
 	while (*paths)
 	{
 		if (!(file_name = (char *)ft_calloc(sizeof(char),
@@ -26,6 +46,13 @@ char	*get_path(char *cmd)
 	}
 	return (NULL);
 }
+
+/*
+** Get the value of the given environment variable.
+** 'home' gives '/home/user'
+** @param	cmd	the key of the variable
+** @return		the value of the variable
+*/
 
 char	*get_env(char *var)
 {
@@ -54,9 +81,9 @@ char	*get_env(char *var)
 }
 
 /*
-** Returns an index of a environmnetal variable
-** @param key evnironmental variable
-** @return index of a envp list
+** Returns the index of a environment variable.
+** @param	key	evnironmental variable
+** @return		index in the envp list
 */
 
 int		get_env_index(char *var)
@@ -79,9 +106,13 @@ int		get_env_index(char *var)
 		++i;
 	}
 	free(key);
-		return (-1);
+	return (-1);
 }
 
+/*
+** Adds an environment variable.
+** @param	var	equality to be inserted in the envp list
+*/
 
 void	add_env(char *var)
 {
@@ -94,8 +125,9 @@ void	add_env(char *var)
 	remove_env(split[0]);
 	while (*split)
 		free(*(split++));
-	while (g_minishell.envp[i++]);
-	if (!(envp = (char **)ft_calloc(sizeof(char *), i + 1)))
+	while (g_minishell.envp[i])
+		i++;
+	if (!(envp = (char **)ft_calloc(sizeof(char *), i + 2)))
 		return ;
 	i = 0;
 	while (g_minishell.envp[i])
@@ -107,6 +139,11 @@ void	add_env(char *var)
 	g_minishell.envp = envp;
 }
 
+/*
+** Remove a variable from environment variables.
+** @param	var	the key of the variable
+*/
+
 void	remove_env(char *var)
 {
 	int		i;
@@ -117,8 +154,9 @@ void	remove_env(char *var)
 	i = 0;
 	if ((index = get_env_index(var)) == -1)
 		return ;
-	while (g_minishell.envp[i++]);
-	if (!(res = (char **)ft_calloc(sizeof(char *), i)))
+	while (g_minishell.envp[i])
+		i++;
+	if (!(res = (char **)ft_calloc(sizeof(char *), i + 1)))
 		return ;
 	i = 0;
 	j = 0;

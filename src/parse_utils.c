@@ -1,4 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmarx <tmarx@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/29 13:21:55 by tmarx             #+#    #+#             */
+/*   Updated: 2020/06/29 14:35:59 by tmarx            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
+
+/*
+** Sets quote and dquote in fonction of current characters.
+** @param	quote		is the current character after an open quote
+** @param	dquote	is the current character after an open double quote
+** @param	c				the current character
+*/
 
 void	handle_quote(int *quote, int *dquote, char *c)
 {
@@ -14,6 +33,13 @@ void	handle_quote(int *quote, int *dquote, char *c)
 	}
 }
 
+/*
+** Sets quote and dquote in fonction of current characters.
+** @param	quote		is the current character after an open quote
+** @param	dquote	is the current character after an open double quote
+** @param	c				the current character
+*/
+
 void	handle_dquote(int *quote, int *dquote, char *c)
 {
 	if (!*quote && !*dquote)
@@ -28,11 +54,23 @@ void	handle_dquote(int *quote, int *dquote, char *c)
 	}
 }
 
+/*
+** Replaces space by CTRL character if necessary.
+** @param	quote		is the current character after an open quote
+** @param	dquote	is the current character after an open double quote
+** @param	c				the current character
+*/
+
 void	handle_letter(int quote, int dquote, char *c)
 {
 	if ((quote || dquote) && *c == ' ')
 		*c = 1;
 }
+
+/*
+** Replaces CTRL characters by spaces
+** @param	str	the string to replace in
+*/
 
 void	decode_command(char *str)
 {

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmarx <tmarx@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/29 13:22:26 by tmarx             #+#    #+#             */
+/*   Updated: 2020/06/29 14:18:15 by tmarx            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include <unistd.h>
@@ -35,7 +47,7 @@ typedef struct	s_minishell
 
 /* minishell */
 void	prompt(void);
-int		exec_cmd(t_cmd cmd);
+void	exec_cmd(t_cmd cmd);
 void	parse_input(char *cmd);
 t_cmd	parse_command(char *cmd);
 void	print_cmd(t_cmd cmd);

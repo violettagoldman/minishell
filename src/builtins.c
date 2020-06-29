@@ -1,4 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtins.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmarx <tmarx@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/29 13:21:28 by tmarx             #+#    #+#             */
+/*   Updated: 2020/06/29 13:58:21 by tmarx            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
+
+/*
+** Builtin that prints given args.
+** @param	cmd	the command executed by the user.
+*/
 
 void	ft_echo(t_cmd cmd)
 {
@@ -25,6 +42,11 @@ void	ft_echo(t_cmd cmd)
 		ft_printf("\n");
 }
 
+/*
+** Builtin that changes current working directory to given path.
+** @param	cmd	the command executed by the user.
+*/
+
 void	ft_cd(t_cmd cmd)
 {
 	if (cmd.argc == 1)
@@ -35,6 +57,11 @@ void	ft_cd(t_cmd cmd)
 		ft_printf("cd: no such file or directory: %s\n", cmd.args[1]);
 }
 
+/*
+** Builtin that prints the current working directory.
+** @param	cmd	the command executed by the user.
+*/
+
 void	ft_pwd(t_cmd cmd)
 {
 	char	buffer[1000];
@@ -44,6 +71,11 @@ void	ft_pwd(t_cmd cmd)
 	else
 		ft_printf("pwd: too many arguments\n");
 }
+
+/*
+** Builtin that adds variables in environment variables.
+** @param	cmd	the command executed by the user.
+*/
 
 void	ft_export(t_cmd cmd)
 {
@@ -65,6 +97,11 @@ void	ft_export(t_cmd cmd)
 		}
 }
 
+/*
+** Takes a command containing a builtin and executes the associated function.
+** @param	cmd	the command executed by the user.
+*/
+
 int		builtin(t_cmd cmd)
 {
 	if (!ft_strcmp(cmd.cmd, "echo"))
@@ -84,5 +121,4 @@ int		builtin(t_cmd cmd)
 	else
 		return (0);
 	return (1);
-
 }

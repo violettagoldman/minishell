@@ -1,4 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   io.c                                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmarx <tmarx@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/29 13:21:43 by tmarx             #+#    #+#             */
+/*   Updated: 2020/06/29 14:23:18 by tmarx            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
+
+/*
+** Set input and outputs file descriptors of a commands list piped in each
+** other.
+** @param	cmds	array of commands piped into the next one
+*/
 
 void	io(t_cmd *cmds)
 {
@@ -29,6 +47,12 @@ void	io(t_cmd *cmds)
 	}
 }
 
+/*
+** Adds a file descriptor in a command outputs.
+** @param	fds	array of file descriptors
+** @param	fd	the file descriptor to add
+*/
+
 void	add_output(int *fds, int fd)
 {
 	int i;
@@ -36,9 +60,13 @@ void	add_output(int *fds, int fd)
 	i = 0;
 	while (fds[i] != -1)
 		i++;
-	//ft_printf("add_output: %d %d\n", fd, i);
 	fds[i] = fd;
 }
+
+/*
+** Plugs STDIN and STDOUT to the pipe between two processes.
+** @param	cmd	the command to execute
+*/
 
 void	redirect(t_cmd cmd)
 {
@@ -55,7 +83,12 @@ void	redirect(t_cmd cmd)
 	}
 }
 
-void close_fd(t_cmd cmd)
+/*
+** Closes all file descriptors opened when the command has been executed.
+** @param	cmd	the command that has been executed
+*/
+
+void	close_fd(t_cmd cmd)
 {
 	int	i;
 

@@ -1,6 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signals.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmarx <tmarx@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/29 13:22:01 by tmarx             #+#    #+#             */
+/*   Updated: 2020/06/29 14:48:58 by tmarx            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 extern t_minishell g_minishell;
+
+/*
+** Handle the signal thrown when the user hits CTRL+C. Kill the current process.
+** @param	signal	the signal value.
+*/
 
 void	handle_ctrl_c(int signal)
 {
@@ -11,13 +28,22 @@ void	handle_ctrl_c(int signal)
 		kill(g_minishell.pid, signal);
 }
 
+/*
+** Handle the signal thrown when the user hits CTRL+\. Kill the current process.
+** @param	signal	the signal value.
+*/
+
 void	handle_ctrl_backslash(int signal)
 {
 	kill(g_minishell.pid, signal);
 	ft_printf("[quit %d]\n", g_minishell.pid);
 }
 
-void handle_signals(void)
+/*
+** Handle the signals, call the expected function.
+*/
+
+void	handle_signals(void)
 {
 	if (signal(SIGINT, &handle_ctrl_c) == SIG_ERR)
 		ft_printf("Could not set SIGINT handler\n");

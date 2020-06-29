@@ -1,6 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   replace_env_var.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmarx <tmarx@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/29 13:21:59 by tmarx             #+#    #+#             */
+/*   Updated: 2020/06/29 14:47:01 by tmarx            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 extern t_minishell g_minishell;
+
+/*
+** Creates a new string that replaces variable key at position a to b with
+** value of the environment variable.
+** 'echo $A', 'A', 5, 6 --> 'echo 42'
+** @param	str	the source string
+** @param	key	the environment variable key
+** @param	a		start position of the key
+** @param	b		end position of the key
+** @return		the new string
+*/
 
 char	*new_str(char *str, char *key, int a, int b)
 {
@@ -14,6 +37,13 @@ char	*new_str(char *str, char *key, int a, int b)
 	free(res_tmp);
 	return (res);
 }
+
+/*
+** Once we replace every existent variables, we replace inexistent variables
+** with blank.
+** @param	str	the source string
+** @return 		the source string without '$[A-B]*'
+*/
 
 char	*filter_nonexistent(char *str)
 {
@@ -32,11 +62,18 @@ char	*filter_nonexistent(char *str)
 			j++;
 		res = ft_strjoin(res, ft_substr(split[i], 0, j));
 		res = ft_strjoin(res, " ");
-		//free(split[i]);
+		free(split[i]);
 		i++;
 	}
 	return (res);
 }
+
+/*
+** Takes a string and replace all '$' followed by environment variable key by
+** the environment variable value.
+** @param	str	the source string
+** @return 		the source with environment variables replaced.
+*/
 
 char	*replace(char *str)
 {

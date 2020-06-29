@@ -1,6 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmarx <tmarx@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/29 13:21:36 by tmarx             #+#    #+#             */
+/*   Updated: 2020/06/29 14:18:39 by tmarx            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 extern t_minishell g_minishell;
+
+/*
+** Sets the last command exit status variable in minishell global variable and
+** the environment variable.
+** @param	n	last command exit status
+*/
 
 void	set_status(int n)
 {
@@ -14,7 +32,13 @@ void	set_status(int n)
 	free(nb);
 }
 
-int		exec_cmd(t_cmd cmd)
+/*
+** Takes a command, creates a subprocess, creates i/o redirections, executes the
+** command, closes redirections and subprocess.
+** @param	cmd	the executed command
+*/
+
+void	exec_cmd(t_cmd cmd)
 {
 	pid_t	pid;
 	int		exec_res;
@@ -41,5 +65,4 @@ int		exec_cmd(t_cmd cmd)
 		g_minishell.pid = 0;
 	}
 	close_fd(cmd);
-	return (1);
 }

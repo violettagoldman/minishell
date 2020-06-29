@@ -1,4 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_command.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tmarx <tmarx@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/29 13:21:53 by tmarx             #+#    #+#             */
+/*   Updated: 2020/06/29 14:31:56 by tmarx            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
+
+/*
+** Replace all spaces between double and single quotes by CTRL ascii character.
+** @param	cmd	the command to encode
+*/
 
 void	encode_command(char *cmd)
 {
@@ -21,8 +38,10 @@ void	encode_command(char *cmd)
 }
 
 /*
-** Takes user input and exec command.
+** Takes user input, splits it and executes each commands.
+** @param	input	the raw user input
 */
+
 void	parse_input(char *input)
 {
 	char	**commands;
@@ -48,8 +67,11 @@ void	parse_input(char *input)
 }
 
 /*
-** Takes a command, split it by different binaries execution
+** Takes raw user input, and create piped commands array.
+** @param	cmd	the user input
+** @return		a commands list
 */
+
 t_cmd	*parse_commands_pipe(char *cmd)
 {
 	char	**pipes;
@@ -65,7 +87,6 @@ t_cmd	*parse_commands_pipe(char *cmd)
 		i++;
 	if (!(cmds = ft_calloc(sizeof(t_cmd), i + 1)))
 	{
-		// HANDLE MALLOC ERROR
 		return (NULL);
 	}
 	i = 0;
@@ -80,8 +101,11 @@ t_cmd	*parse_commands_pipe(char *cmd)
 }
 
 /*
-** Takes a single command string and converts it to an t_cmd
+** Parse a single user command and splits command and args.
+** @param	cmd	the command string
+** @return		the command object
 */
+
 t_cmd	parse_command(char *cmd)
 {
 	char	**pieces;
@@ -104,13 +128,17 @@ t_cmd	parse_command(char *cmd)
 	while (pieces[i] != NULL)
 	{
 		res.args[i] = pieces[i];
-		decode_command(res.args[i]);
-		i++;
+		decode_command(res.args[i++]);
 	}
 	res.args[i] = NULL;
 	parse_outputs(&res);
 	return (res);
 }
+
+/*
+** Takes a single command object, and parses command outputs.
+** @param	cmd	the command to parse
+*/
 
 void	parse_outputs(t_cmd *cmd)
 {
