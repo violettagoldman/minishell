@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:47 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/06/29 16:08:41 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/06/29 22:38:55 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,7 @@ void	parse_input(char *input)
 		cmds = parse_commands_pipe(commands[i++]);
 		j = 0;
 		while (cmds[j].cmd != NULL)
-		{
-			if (!builtin(cmds[j]))
-			{
-				cmds[j].cmd_abs = get_path(cmds[j].cmd);
-				exec_cmd(cmds[j]);
-			}
-			j++;
-		}
+			exec_cmd(cmds[j++]);
 		free(cmds);
 	}
 	free(commands);
@@ -172,4 +165,8 @@ void	parse_outputs(t_cmd *cmd)
 		if (mode > 0)
 			cmd->args[i] = NULL;
 	}
+	i = 0;
+	while (cmd->args[i])
+		i++;
+	cmd->argc = i;
 }

@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:59:58 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/06/29 16:00:51 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/06/29 22:39:21 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,9 @@ int		builtin(t_cmd cmd)
 	else if (!ft_strcmp(cmd.cmd, "env"))
 		ft_env(cmd);
 	else if (!ft_strcmp(cmd.cmd, "exit"))
-		quit();
+		return (-1);
 	else
 		return (0);
+	exit(0);
 	return (1);
 }
