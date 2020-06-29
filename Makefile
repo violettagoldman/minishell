@@ -1,11 +1,11 @@
 NAME = minishell
-CFLAGS = -Wall -Wextra -Werror -Ofast -flto -march=native -Iinc/
+CFLAGS = -Wall -Wextra -Werror -g3 -Ofast -flto -march=native -Iinc/
 
 TOTAL = $(shell find src -iname  "*.c" | wc -l | bc)
 O_COUNT = 0
 COUNT = 0
 
-define update 
+define update
 	$(eval O_COUNT := $(shell find obj -iname "*.o" 2> /dev/null | wc -l | bc))
 	printf "\r["
 	printf '=%.0s' {0..${O_COUNT}}
@@ -15,7 +15,7 @@ define update
 endef
 
 ifeq ($(D), 1)
-    CFLAGS += -g3 -fsanitize=address
+    CFLAGS += -fsanitize=address
 endif
 OS = $(shell uname -s)
 ifeq ($(OS), Linux)

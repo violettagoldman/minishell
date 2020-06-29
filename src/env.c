@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:59:41 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/06/29 14:59:41 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/06/29 16:23:13 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,29 @@ char	*get_path(char *cmd)
 	char		**paths;
 	struct stat	buffer;
 	char		*file_name;
+	int			i;
 
+	i = 0;
 	paths = ft_split(get_env("PATH"), ':');
 	if (!stat(cmd, &buffer))
 		return (cmd);
-	while (*paths)
+	while (paths[i])
 	{
 		if (!(file_name = (char *)ft_calloc(sizeof(char),
-			(ft_strlen(cmd) + ft_strlen(*paths) + 2))))
+			(ft_strlen(cmd) + ft_strlen(paths[i]) + 2))))
 			return (NULL);
-		file_name = ft_strcat(file_name, *paths);
+		file_name = ft_strcat(file_name, paths[i]);
 		file_name = ft_strcat(file_name, "/");
 		file_name = ft_strcat(file_name, cmd);
 		if (!stat(file_name, &buffer))
+		{
+			free_splits(paths);
 			return (file_name);
+		}
 		free(file_name);
-		paths++;
+		i++;
 	}
+	free_splits(paths);
 	return (NULL);
 }
 
@@ -136,7 +142,10 @@ void	add_env(char *var)
 		i++;
 	}
 	envp[i] = var;
+	if (g_minishell.envp_malloc)
+		free(g_minishell.envp);
 	g_minishell.envp = envp;
+	g_minishell.envp_malloc = 1;
 }
 
 /*
@@ -164,6 +173,8 @@ void	remove_env(char *var)
 	{
 		if (i != index)
 			res[j++] = g_minishell.envp[i];
+		else
+			free(g_minishell.envp[i]);
 		i++;
 	}
 	g_minishell.envp = res;

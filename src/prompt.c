@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:30 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/06/29 14:58:31 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/06/29 16:29:29 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,20 @@ char	*current_directory(void)
 	char	buffer[1000];
 	char	**dirs;
 	int		i;
+	int		j;
 
 	i = 0;
+	j = 0;
 	getcwd(buffer, 1000);
 	if (!ft_strcmp(buffer, "/"))
 		return ("/");
 	else
 		dirs = ft_split(buffer, '/');
-	while (dirs[i++]);
-	return (dirs[i - 2]);
+	while (dirs[i])
+		i++;
+	while (j < i - 1)
+		free(dirs[j++]);
+	return (dirs[i - 1]);
 }
 
 /*
@@ -50,10 +55,14 @@ void	quit(void)
 
 void	print_prompt(void)
 {
+	char	*dir;
+
+	dir = current_directory();
 	if (g_minishell.status == 0)
-		ft_printf(BOLD GREEN"➜ "CYAN" %s "RESET, current_directory());
+		ft_printf(BOLD GREEN"➜ "CYAN" %s "RESET, dir);
 	else
-		ft_printf(BOLD RED"➜ "CYAN" %s "RESET, current_directory());
+		ft_printf(BOLD RED"➜ "CYAN" %s "RESET, dir);
+	free(dir);
 }
 
 /*

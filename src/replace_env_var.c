@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:22 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/06/29 14:58:22 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/06/29 16:30:29 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,17 @@ char	*new_str(char *str, char *key, int a, int b)
 	char	*res_tmp;
 	char	*res;
 	char	*value;
+	char	*tmp[2];
 
 	value = get_env(key);
-	res_tmp = ft_strjoin(ft_substr(str, 0, a), value);
-	res = ft_strjoin(res_tmp, ft_substr(str, b, ft_strlen(str) - b));
+	tmp[0] = ft_substr(str, 0, a);
+	tmp[1] = ft_substr(str, b, ft_strlen(str) - b);
+	res_tmp = ft_strjoin(tmp[0], value);
+	res = ft_strjoin(res_tmp, tmp[1]);
 	free(res_tmp);
+	free(value);
+	free(tmp[0]);
+	free(tmp[1]);
 	return (res);
 }
 
@@ -48,24 +54,28 @@ char	*new_str(char *str, char *key, int a, int b)
 char	*filter_nonexistent(char *str)
 {
 	char	**split;
-	char	*res;
+	char	*res[3];
 	int		i;
 	int		j;
 
 	i = 0;
 	split = ft_split(str, ' ');
-	res = "";
+	res[0] = "";
 	while (split[i])
 	{
 		j = 0;
 		while (split[i][j] && split[i][j] != '$')
 			j++;
-		res = ft_strjoin(res, ft_substr(split[i], 0, j));
-		res = ft_strjoin(res, " ");
-		free(split[i]);
+		res[1] = ft_substr(split[i], 0, j);
+		res[2] = ft_strjoin(res[0], res[1]);
+		res[0] = ft_strjoin(res[2], " ");
+		free(res[1]);
+		free(res[2]);
 		i++;
 	}
-	return (res);
+	free(str);
+	free_splits(split);
+	return (res[0]);
 }
 
 /*

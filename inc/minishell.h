@@ -6,7 +6,7 @@
 /*   By: tmarx <tmarx@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 13:22:26 by tmarx             #+#    #+#             */
-/*   Updated: 2020/06/29 14:18:15 by tmarx            ###   ########.fr       */
+/*   Updated: 2020/06/29 16:21:31 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct	s_cmd
 {
 	char	**args;
 	char	*cmd;
+	char	*cmd_abs;
 	int		argc;
 	int		out[MAX_OUTPUTS];
 	int		in;
@@ -43,6 +44,7 @@ typedef struct	s_minishell
 	pid_t	pid;
 	char	**envp;
 	int		status;
+	int		envp_malloc;
 }				t_minishell;
 
 /* minishell */
@@ -64,6 +66,7 @@ void	add_output(int *fds, int fd);
 void	redirect(t_cmd cmd);
 void	close_fd(t_cmd cmd);
 void	parse_outputs(t_cmd *cmd);
+void	free_cmd(t_cmd cmd);
 
 /* signals */
 void	handle_signals(void);
@@ -89,6 +92,7 @@ void	quit(void);
 /* libft */
 int		ft_strcmp(char *s1, char *s2);
 char	**ft_split(char const *s, char c);
+void	free_splits(char **splits);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strcat(char *dest, char *src);
 char	*ft_strjoin(char *s1, char *s2);

@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:59:33 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/06/29 14:59:35 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/06/29 16:09:55 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	exec_cmd(t_cmd cmd)
 	pid = fork();
 	if (!pid)
 		redirect(cmd);
-	if (!pid && (exec_res = execve(get_path(cmd.cmd),
+	if (!pid && (exec_res = execve(cmd.cmd_abs,
 					cmd.args, g_minishell.envp) < 0))
 	{
 		ft_printf("minishell: %s: command not found\n", cmd.cmd);
@@ -65,4 +65,20 @@ void	exec_cmd(t_cmd cmd)
 		g_minishell.pid = 0;
 	}
 	close_fd(cmd);
+	free_cmd(cmd);
+}
+
+/*
+** Frees given command object.
+** @param	cmd	the command object to free.
+*/
+
+void	free_cmd(t_cmd cmd)
+{
+	int i;
+
+	i = 0;
+	while (cmd.args[i])
+		free(cmd.args[i++]);
+	free(cmd.cmd_abs);
 }

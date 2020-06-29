@@ -6,7 +6,7 @@
 /*   By: tmarx <tmarx@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 13:21:40 by tmarx             #+#    #+#             */
-/*   Updated: 2020/06/29 13:21:41 by tmarx            ###   ########.fr       */
+/*   Updated: 2020/06/29 15:50:18 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,14 @@ char		**ft_split(char const *s, char c)
 	}
 	arr[i] = NULL;
 	return (arr);
+}
+
+void	free_splits(char **splits)
+{
+	int i;
+
+	i = 0;
+	while (splits[i])
+		free(splits[i++]);
+	free(splits);
 }

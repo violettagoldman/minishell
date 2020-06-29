@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:59:58 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/06/29 15:00:00 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/06/29 16:00:51 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,14 @@ void	ft_echo(t_cmd cmd)
 
 void	ft_cd(t_cmd cmd)
 {
+	char	*home;
+
 	if (cmd.argc == 1)
-		chdir(get_env("HOME"));
+	{
+		home = get_env("HOME");
+		chdir(home);
+		free(home);
+	}
 	else if (cmd.argc > 2)
 		ft_printf("cd: too many arguments\n");
 	else if (chdir(cmd.args[1]) < 0)
