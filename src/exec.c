@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:59:33 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/06/29 16:09:55 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/06/29 22:32:53 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,24 @@ void	exec_cmd(t_cmd cmd)
 {
 	pid_t	pid;
 	int		exec_res;
+	int		builtin_res;
 
 	pid = fork();
 	if (!pid)
-		redirect(cmd);
-	if (!pid && (exec_res = execve(cmd.cmd_abs,
-					cmd.args, g_minishell.envp) < 0))
 	{
-		ft_printf("minishell: %s: command not found\n", cmd.cmd);
-		exit(127);
+		redirect(cmd);
+		if (!(builtin_res = builtin(cmd)))
+		{
+			cmd.cmd_abs = get_path(cmd.cmd);
+			exec_res = execve(cmd.cmd_abs, cmd.args, g_minishell.envp);
+			if (exec_res < 0)
+			{
+				ft_printf("minishell: %s: command not found\n", cmd.cmd);
+				exit(127);
+			}
+		}
+		else if (builtin_res == -1)
+			exit(-1);
 	}
 	else if (pid < 0)
 	{
@@ -62,10 +71,12 @@ void	exec_cmd(t_cmd cmd)
 		g_minishell.pid = pid;
 		wait(&pid);
 		set_status(WEXITSTATUS(pid));
+		if (g_minishell.status == -1)
+			exit(0);
 		g_minishell.pid = 0;
 	}
 	close_fd(cmd);
-	free_cmd(cmd);
+	//free_cmd(cmd);
 }
 
 /*
