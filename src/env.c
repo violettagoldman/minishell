@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:59:41 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/06/29 20:25:56 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/01 14:01:42 by tmarx            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,14 +142,12 @@ void	add_env(char *var)
 	i = 0;
 	while (g_minishell.envp[i])
 	{
-		envp[i] = g_minishell.envp[i];
+		envp[i] = ft_strjoin(g_minishell.envp[i], "");
 		i++;
 	}
-	envp[i] = var;
-	if (g_minishell.envp_malloc)
-		free(g_minishell.envp);
+	envp[i] = ft_strjoin(var, "");
+	free_splits(g_minishell.envp);
 	g_minishell.envp = envp;
-	g_minishell.envp_malloc = 1;
 }
 
 /*
@@ -176,10 +174,9 @@ void	remove_env(char *var)
 	while (g_minishell.envp[i])
 	{
 		if (i != index)
-			res[j++] = g_minishell.envp[i];
-		else
-			free(g_minishell.envp[i]);
+			res[j++] = ft_strjoin(g_minishell.envp[i], "");
 		i++;
 	}
+	free_splits(g_minishell.envp);
 	g_minishell.envp = res;
 }

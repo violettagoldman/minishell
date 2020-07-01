@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:59:33 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/06/29 22:32:53 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/01 14:19:05 by tmarx            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	set_status(int n)
 	g_minishell.status = n;
 	res = ft_strjoin("?=", nb);
 	add_env(res);
+	free(res);
 	free(nb);
 }
 
@@ -59,7 +60,7 @@ void	exec_cmd(t_cmd cmd)
 			}
 		}
 		else if (builtin_res == -1)
-			exit(-1);
+			exit(42);
 	}
 	else if (pid < 0)
 	{
@@ -71,12 +72,12 @@ void	exec_cmd(t_cmd cmd)
 		g_minishell.pid = pid;
 		wait(&pid);
 		set_status(WEXITSTATUS(pid));
-		if (g_minishell.status == -1)
-			exit(0);
+		if (g_minishell.status == 42)
+			quit();
 		g_minishell.pid = 0;
 	}
 	close_fd(cmd);
-	//free_cmd(cmd);
+	free_cmd(cmd);
 }
 
 /*

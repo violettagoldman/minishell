@@ -6,7 +6,7 @@
 /*   By: tmarx <tmarx@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 13:22:26 by tmarx             #+#    #+#             */
-/*   Updated: 2020/06/29 16:21:31 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/01 13:39:24 by tmarx            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef struct	s_minishell
 	pid_t	pid;
 	char	**envp;
 	int		status;
-	int		envp_malloc;
 }				t_minishell;
 
 /* minishell */
@@ -79,6 +78,7 @@ void	add_env(char *var);
 void	remove_env(char *var);
 int		equality_sign_check(char *var);
 char	*replace(char *str);
+char	**copy_envp(char **envp);
 
 /* built-ins */
 int		builtin(t_cmd cmd);

@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:30 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/06/29 20:30:10 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/01 13:44:59 by tmarx            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ char	*current_directory(void)
 
 void	quit(void)
 {
-	// if (g_minishell.envp_malloc)
-	// 	free(g_minishell.envp);
+	free_splits(g_minishell.envp);
 	exit(0);
 }
 
