@@ -30,10 +30,10 @@ char	*get_path(char *cmd)
 	int					i;
 
 	i = 0;
+	if (!stat(cmd, &buffer))
+		return (ft_strjoin(cmd, ""));
 	file_name[1] = get_env("PATH");
 	paths = ft_split(file_name[1], ':');
-	if (!stat(cmd, &buffer))
-		return (cmd);
 	while (paths[i])
 	{
 		if (!(file_name[0] = (char *)ft_calloc(sizeof(char),
@@ -48,8 +48,8 @@ char	*get_path(char *cmd)
 			free_splits(paths);
 			return (file_name[0]);
 		}
-		free(file_name[0]);
 		i++;
+		free(file_name[0]);
 	}
 	free(file_name[1]);
 	free_splits(paths);
@@ -68,6 +68,7 @@ char	*get_env(char *var)
 	char	**env;
 	char	**res;
 	char	*key;
+	char	*tmp;
 
 	env = g_minishell.envp;
 	if (!(key = (char *)ft_calloc(sizeof(char), ft_strlen(var) + 2)))
@@ -79,9 +80,10 @@ char	*get_env(char *var)
 		if (!ft_strncmp(*env, key, ft_strlen(key)))
 		{
 			res = ft_split(*env, '=');
-			free(res[0]);
+			tmp = ft_strjoin(res[1], "");
+			free_splits(res);
 			free(key);
-			return (res[1]);
+			return (tmp);
 		}
 		env++;
 	}
@@ -132,8 +134,7 @@ void	add_env(char *var)
 	i = 0;
 	split = ft_split(var, '=');
 	remove_env(split[0]);
-	while (*split)
-		free(*(split++));
+	free_splits(split);
 	while (g_minishell.envp[i])
 		i++;
 	if (!(envp = (char **)ft_calloc(sizeof(char *), i + 2)))

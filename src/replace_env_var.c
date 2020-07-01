@@ -60,7 +60,7 @@ char	*filter_nonexistent(char *str)
 
 	i = 0;
 	split = ft_split(str, ' ');
-	res[0] = "";
+	res[0] = ft_strjoin("", "");
 	while (split[i])
 	{
 		j = 0;
@@ -68,6 +68,7 @@ char	*filter_nonexistent(char *str)
 			j++;
 		res[1] = ft_substr(split[i], 0, j);
 		res[2] = ft_strjoin(res[0], res[1]);
+		free(res[0]);
 		res[0] = ft_strjoin(res[2], " ");
 		free(res[1]);
 		free(res[2]);
@@ -101,14 +102,11 @@ char	*replace(char *str)
 		while (str[++j])
 		{
 			if (!ft_strncmp((str + j), key, ft_strlen(key)))
-			{
 				str = new_str(str, split[0], j, j + ft_strlen(key));
-			}
 		}
 		i++;
 		free(key);
-		while (*split)
-			free(*(split++));
+		free_splits(split);
 	}
 	return (filter_nonexistent(str));
 }

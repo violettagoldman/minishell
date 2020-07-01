@@ -53,6 +53,7 @@ void	parse_input(char *input)
 	encode_command(input);
 	i = 0;
 	commands = ft_split(input, ';');
+	free(input);
 	while (commands[i] != NULL)
 	{
 		cmds = parse_commands_pipe(commands[i++]);
@@ -100,6 +101,7 @@ t_cmd	*parse_commands_pipe(char *cmd)
 		cmds[i] = parse_command(pipes[i]);
 		i++;
 	}
+	free(pipes);
 	cmds[i] = last;
 	io(cmds);
 	return (cmds);
@@ -135,7 +137,9 @@ t_cmd	parse_command(char *cmd)
 		res.args[i] = pieces[i];
 		decode_command(res.args[i++]);
 	}
+	free(pieces);
 	res.args[i] = NULL;
+	res.cmd_abs = NULL;
 	parse_outputs(&res);
 	return (res);
 }

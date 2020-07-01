@@ -24,20 +24,19 @@ char	*current_directory(void)
 	char	buffer[1000];
 	char	**dirs;
 	int		i;
-	int		j;
+	char	*res;
 
 	i = 0;
-	j = 0;
 	getcwd(buffer, 1000);
 	if (!ft_strcmp(buffer, "/"))
-		return ("/");
+		return (ft_strjoin("/", ""));
 	else
 		dirs = ft_split(buffer, '/');
 	while (dirs[i])
 		i++;
-	while (j < i - 1)
-		free(dirs[j++]);
-	return (dirs[i - 1]);
+	res = ft_strjoin(dirs[i - 1], "");
+	free_splits(dirs);
+	return (res);
 }
 
 /*
@@ -46,6 +45,8 @@ char	*current_directory(void)
 
 void	quit(void)
 {
+	// if (g_minishell.envp_malloc)
+	// 	free(g_minishell.envp);
 	exit(0);
 }
 
