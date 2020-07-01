@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:47 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/01 14:38:25 by tmarx            ###   ########.fr       */
+/*   Updated: 2020/07/01 15:55:08 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ t_cmd	parse_command(char *cmd)
 	free(pieces);
 	res.args[i] = NULL;
 	res.cmd_abs = NULL;
+	res.in = 0;
 	parse_outputs(&res);
 	return (res);
 }
@@ -157,14 +158,23 @@ void	parse_outputs(t_cmd *cmd)
 			mode = 1;
 		else if (!ft_strcmp(cmd->args[i], ">>"))
 			mode = 2;
-		else if (mode == 1 || mode == 2)
+		else if (!ft_strcmp(cmd->args[i], "<"))
+			mode = 3;
+		else if (mode == 1 || mode == 2 )
 		{
 			flags = mode == 1 ?
 				O_WRONLY | O_CREAT | O_TRUNC : O_WRONLY | O_CREAT | O_APPEND;
 			if ((fd = open(cmd->args[i], flags, 0666)) < 0)
-				ft_printf("minishell: cannot create %s", cmd->args[i]);
+				ft_printf("minishell: cannot create %s\n", cmd->args[i]);
 			else
 				add_output(cmd->out, fd);
+		}
+		else if (mode == 3)
+		{
+			flags = O_RDONLY;
+			if ((fd = open(cmd->args[i], flags)) < 0)
+				ft_printf("minishell: cannot read %s\n", cmd->args[i]);
+			cmd->in = fd;
 		}
 		if (mode > 0)
 		{

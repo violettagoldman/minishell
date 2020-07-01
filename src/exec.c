@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:59:33 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/01 14:35:04 by tmarx            ###   ########.fr       */
+/*   Updated: 2020/07/01 15:57:53 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void	exec_cmd(t_cmd cmd)
 		redirect(cmd);
 		if (!builtin(cmd))
 		{
+			if (cmd.in < 0)
+				exit(1);
 			cmd.cmd_abs = get_path(cmd.cmd);
 			exec_res = execve(cmd.cmd_abs, cmd.args, g_minishell.envp);
 			if (exec_res < 0)

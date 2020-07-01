@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:59:27 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/06/29 22:00:56 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/01 15:45:12 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ void	io(t_cmd *cmds)
 		total++;
 	while (i < total)
 	{
-		if (!i)
-			cmds[i].in = 0;
-		else
+		if (i)
 		{
 			pipe(fd);
 			add_output(cmds[i - 1].out, fd[1]);
