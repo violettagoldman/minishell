@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:59:58 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/06/29 22:39:21 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/01 14:30:06 by tmarx            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,8 @@ void	ft_export(t_cmd cmd)
 }
 
 /*
-** Takes a command containing a builtin and executes the associated function.
+** Takes a command containing a builtin and executes the associated function on.
+** child process.
 ** @param	cmd	the command executed by the user.
 */
 
@@ -112,18 +113,10 @@ int		builtin(t_cmd cmd)
 {
 	if (!ft_strcmp(cmd.cmd, "echo"))
 		ft_echo(cmd);
-	else if (!ft_strcmp(cmd.cmd, "cd"))
-		ft_cd(cmd);
 	else if (!ft_strcmp(cmd.cmd, "pwd"))
 		ft_pwd(cmd);
-	else if (!ft_strcmp(cmd.cmd, "export"))
-		ft_export(cmd);
-	else if (!ft_strcmp(cmd.cmd, "unset"))
-		ft_unset(cmd);
 	else if (!ft_strcmp(cmd.cmd, "env"))
 		ft_env(cmd);
-	else if (!ft_strcmp(cmd.cmd, "exit"))
-		return (-1);
 	else
 		return (0);
 	exit(0);

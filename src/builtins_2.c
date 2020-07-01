@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:00:07 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/06/29 15:00:07 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/01 14:29:41 by tmarx            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,25 @@ void	ft_env(t_cmd cmd)
 			ft_printf("%s\n", g_minishell.envp[i++]);
 	else
 		ft_printf("env: %s: No such file or directory\n", cmd.args[1]);
+}
+
+/*
+** Takes a command containing a builtin and executes the associated function on.
+** parent process.
+** @param	cmd	the command executed by the user.
+*/
+
+int		builtin_parent(t_cmd cmd)
+{
+	if (!ft_strcmp(cmd.cmd, "cd"))
+		ft_cd(cmd);
+	else if (!ft_strcmp(cmd.cmd, "export"))
+		ft_export(cmd);
+	else if (!ft_strcmp(cmd.cmd, "unset"))
+		ft_unset(cmd);
+	else if (!ft_strcmp(cmd.cmd, "exit"))
+		quit();
+	else
+		return (0);
+	return (1);
 }

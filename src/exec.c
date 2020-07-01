@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:59:33 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/01 14:19:05 by tmarx            ###   ########.fr       */
+/*   Updated: 2020/07/01 14:35:04 by tmarx            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,17 @@ void	exec_cmd(t_cmd cmd)
 {
 	pid_t	pid;
 	int		exec_res;
-	int		builtin_res;
 
+	if (builtin_parent(cmd))
+	{
+		free_cmd(cmd);
+		return ;
+	}
 	pid = fork();
 	if (!pid)
 	{
 		redirect(cmd);
-		if (!(builtin_res = builtin(cmd)))
+		if (!builtin(cmd))
 		{
 			cmd.cmd_abs = get_path(cmd.cmd);
 			exec_res = execve(cmd.cmd_abs, cmd.args, g_minishell.envp);
@@ -59,8 +63,6 @@ void	exec_cmd(t_cmd cmd)
 				exit(127);
 			}
 		}
-		else if (builtin_res == -1)
-			exit(42);
 	}
 	else if (pid < 0)
 	{
@@ -72,8 +74,6 @@ void	exec_cmd(t_cmd cmd)
 		g_minishell.pid = pid;
 		wait(&pid);
 		set_status(WEXITSTATUS(pid));
-		if (g_minishell.status == 42)
-			quit();
 		g_minishell.pid = 0;
 	}
 	close_fd(cmd);

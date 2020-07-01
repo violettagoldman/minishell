@@ -6,7 +6,7 @@
 /*   By: tmarx <tmarx@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 13:22:26 by tmarx             #+#    #+#             */
-/*   Updated: 2020/07/01 13:39:24 by tmarx            ###   ########.fr       */
+/*   Updated: 2020/07/01 14:31:12 by tmarx            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ char	**copy_envp(char **envp);
 
 /* built-ins */
 int		builtin(t_cmd cmd);
+int		builtin_parent(t_cmd cmd);
 void	ft_echo(t_cmd cmd);
 void	ft_cd(t_cmd cmd);
 void	ft_export(t_cmd cmd);
