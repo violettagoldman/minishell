@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:59:33 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/01 15:57:53 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/01 16:52:46 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	set_status(int n)
 void	exec_cmd(t_cmd cmd)
 {
 	pid_t	pid;
-	int		exec_res;
 
 	if (builtin_parent(cmd))
 	{
@@ -51,21 +50,7 @@ void	exec_cmd(t_cmd cmd)
 	}
 	pid = fork();
 	if (!pid)
-	{
-		redirect(cmd);
-		if (!builtin(cmd))
-		{
-			if (cmd.in < 0)
-				exit(1);
-			cmd.cmd_abs = get_path(cmd.cmd);
-			exec_res = execve(cmd.cmd_abs, cmd.args, g_minishell.envp);
-			if (exec_res < 0)
-			{
-				ft_printf("minishell: %s: command not found\n", cmd.cmd);
-				exit(127);
-			}
-		}
-	}
+		exec_on_child(cmd);
 	else if (pid < 0)
 	{
 		ft_printf("minishell: fork error\n");
@@ -96,4 +81,28 @@ void	free_cmd(t_cmd cmd)
 		free(cmd.args[i++]);
 	free(cmd.args);
 	free(cmd.cmd_abs);
+}
+
+/*
+** Takes a command and execute it in child.
+** @param cmd	the command to execute
+*/
+
+void	exec_on_child(t_cmd cmd)
+{
+	int exec_res;
+
+	redirect(cmd);
+	if (!builtin(cmd))
+	{
+		if (cmd.in < 0)
+			exit(1);
+		cmd.cmd_abs = get_path(cmd.cmd);
+		exec_res = execve(cmd.cmd_abs, cmd.args, g_minishell.envp);
+		if (exec_res < 0)
+		{
+			ft_printf("minishell: %s: command not found\n", cmd.cmd);
+			exit(127);
+		}
+	}
 }

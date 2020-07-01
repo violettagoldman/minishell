@@ -6,7 +6,7 @@
 /*   By: tmarx <tmarx@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 13:22:26 by tmarx             #+#    #+#             */
-/*   Updated: 2020/07/01 14:31:12 by tmarx            ###   ########.fr       */
+/*   Updated: 2020/07/01 17:09:09 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,58 +47,79 @@ typedef struct	s_minishell
 	int		status;
 }				t_minishell;
 
-/* minishell */
-void	prompt(void);
-void	exec_cmd(t_cmd cmd);
-void	parse_input(char *cmd);
-t_cmd	parse_command(char *cmd);
-void	print_cmd(t_cmd cmd);
-t_cmd	*parse_commands_pipe(char *cmd);
-void	print_prompt(void);
-void	set_status(int n);
-void	encode_command(char *cmd);
-void	handle_quote(int *quote, int *dquote, char *c);
-void	handle_dquote(int *quote, int *dquote, char *c);
-void	handle_letter(int quote, int dquote, char *c);
-void	decode_command(char *str);
-void	io(t_cmd *cmds);
-void	add_output(int *fds, int fd);
-void	redirect(t_cmd cmd);
-void	close_fd(t_cmd cmd);
-void	parse_outputs(t_cmd *cmd);
-void	free_cmd(t_cmd cmd);
+/*
+** minishell
+*/
 
-/* signals */
-void	handle_signals(void);
+void			prompt(void);
+void			exec_cmd(t_cmd cmd);
+void			parse_input(char *cmd);
+t_cmd			parse_command(char *cmd);
+void			print_cmd(t_cmd cmd);
+t_cmd			*parse_commands_pipe(char *cmd);
+void			print_prompt(void);
+void			set_status(int n);
+void			encode_command(char *cmd);
+void			handle_quote(int *quote, int *dquote, char *c);
+void			handle_dquote(int *quote, int *dquote, char *c);
+void			handle_letter(int quote, int dquote, char *c);
+void			decode_command(char *str);
+void			io(t_cmd *cmds);
+void			add_output(int *fds, int fd);
+void			redirect(t_cmd cmd);
+void			close_fd(t_cmd cmd);
+void			parse_outputs(t_cmd *cmd);
+void			free_cmd(t_cmd cmd);
+void			init_cmd(t_cmd *cmd);
+int				set_mode(int *mode, char *arg);
+void			handle_output(int mode, t_cmd *cmd, char *arg);
+void			handle_input(t_cmd *cmd, char *arg);
+void			exec_on_child(t_cmd cmd);
 
-/* env */
-char	*get_env(char *var);
-char	*get_path(char *cmd);
-void	add_env(char *var);
-void	remove_env(char *var);
-int		equality_sign_check(char *var);
-char	*replace(char *str);
-char	**copy_envp(char **envp);
+/*
+** Signals
+*/
 
-/* built-ins */
-int		builtin(t_cmd cmd);
-int		builtin_parent(t_cmd cmd);
-void	ft_echo(t_cmd cmd);
-void	ft_cd(t_cmd cmd);
-void	ft_export(t_cmd cmd);
-void	ft_unset(t_cmd cmd);
-void	ft_env(t_cmd cmd);
-void	ft_pwd(t_cmd cmd);
-void	quit(void);
+void			handle_signals(void);
 
-/* libft */
-int		ft_strcmp(char *s1, char *s2);
-char	**ft_split(char const *s, char c);
-void	free_splits(char **splits);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
-char	*ft_strcat(char *dest, char *src);
-char	*ft_strjoin(char *s1, char *s2);
-char	*ft_substr(char *s, int start, int len);
-char	*ft_itoa(int n);
+/*
+** Env
+*/
+
+char			*get_env(char *var);
+char			*get_path(char *cmd);
+void			add_env(char *var);
+void			remove_env(char *var);
+int				equality_sign_check(char *var);
+char			*replace(char *str);
+char			**copy_envp(char **envp);
+void			create_filename(char *path, char *cmd, char *file_name[2]);
+
+/*
+** Built-ins
+*/
+
+int				builtin(t_cmd cmd);
+int				builtin_parent(t_cmd cmd);
+void			ft_echo(t_cmd cmd);
+void			ft_cd(t_cmd cmd);
+void			ft_export(t_cmd cmd);
+void			ft_unset(t_cmd cmd);
+void			ft_env(t_cmd cmd);
+void			ft_pwd(t_cmd cmd);
+void			quit(void);
+
+/*
+** Libft
+*/
+
+int				ft_strcmp(char *s1, char *s2);
+char			**ft_split(char const *s, char c);
+void			free_splits(char **splits);
+int				ft_strncmp(const char *s1, const char *s2, size_t n);
+char			*ft_strcat(char *dest, char *src);
+char			*ft_strjoin(char *s1, char *s2);
+char			*ft_substr(char *s, int start, int len);
+char			*ft_itoa(int n);
 
 #endif

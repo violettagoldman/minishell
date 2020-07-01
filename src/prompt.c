@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:30 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/01 13:44:59 by tmarx            ###   ########.fr       */
+/*   Updated: 2020/07/01 16:43:30 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,15 @@ void	print_prompt(void)
 
 	dir = current_directory();
 	if (g_minishell.status == 0)
-		ft_printf(BOLD GREEN"➜ "CYAN" %s "RESET, dir);
+	{
+		ft_printf(BOLD);
+		ft_printf(GREEN"➜ "CYAN" %s "RESET, dir);
+	}
 	else
-		ft_printf(BOLD RED"➜ "CYAN" %s "RESET, dir);
+	{
+		ft_printf(BOLD);
+		ft_printf(RED"➜ "CYAN" %s "RESET, dir);
+	}
 	free(dir);
 }
 

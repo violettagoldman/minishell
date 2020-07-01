@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:47 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/01 15:55:08 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/01 16:28:10 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,13 +115,12 @@ t_cmd	parse_command(char *cmd)
 	i = 0;
 	while (i < MAX_OUTPUTS)
 		res.out[i++] = -1;
-	i = 0;
 	pieces = ft_split(cmd, ' ');
 	free(cmd);
 	res.cmd = pieces[0];
-	while (pieces[i] != NULL)
-		i++;
-	res.argc = i;
+	res.argc = 0;
+	while (pieces[res.argc] != NULL)
+		res.argc++;
 	if (!(res.args = ft_calloc(i + 1, sizeof(char *))))
 		return (res);
 	i = 0;
@@ -132,9 +131,7 @@ t_cmd	parse_command(char *cmd)
 	}
 	free(pieces);
 	res.args[i] = NULL;
-	res.cmd_abs = NULL;
-	res.in = 0;
-	parse_outputs(&res);
+	init_cmd(&res);
 	return (res);
 }
 
@@ -147,35 +144,17 @@ void	parse_outputs(t_cmd *cmd)
 {
 	int	mode;
 	int	i;
-	int	fd;
-	int	flags;
 
 	i = -1;
 	mode = 0;
 	while (++i < cmd->argc)
 	{
-		if (!ft_strcmp(cmd->args[i], ">"))
-			mode = 1;
-		else if (!ft_strcmp(cmd->args[i], ">>"))
-			mode = 2;
-		else if (!ft_strcmp(cmd->args[i], "<"))
-			mode = 3;
-		else if (mode == 1 || mode == 2 )
-		{
-			flags = mode == 1 ?
-				O_WRONLY | O_CREAT | O_TRUNC : O_WRONLY | O_CREAT | O_APPEND;
-			if ((fd = open(cmd->args[i], flags, 0666)) < 0)
-				ft_printf("minishell: cannot create %s\n", cmd->args[i]);
-			else
-				add_output(cmd->out, fd);
-		}
+		if (set_mode(&mode, cmd->args[i]))
+			(void)mode;
+		else if (mode == 1 || mode == 2)
+			handle_output(mode, cmd, cmd->args[i]);
 		else if (mode == 3)
-		{
-			flags = O_RDONLY;
-			if ((fd = open(cmd->args[i], flags)) < 0)
-				ft_printf("minishell: cannot read %s\n", cmd->args[i]);
-			cmd->in = fd;
-		}
+			handle_input(cmd, cmd->args[i]);
 		if (mode > 0)
 		{
 			free(cmd->args[i]);

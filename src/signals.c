@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:57:33 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/06/29 14:57:34 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/01 17:23:25 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,11 @@ void	handle_ctrl_c(int signal)
 
 void	handle_ctrl_backslash(int signal)
 {
-	kill(g_minishell.pid, signal);
-	ft_printf("[quit %d]\n", g_minishell.pid);
+	if (g_minishell.pid)
+	{
+		kill(g_minishell.pid, signal);
+		ft_printf("\n[quit %d]\n", g_minishell.pid);
+	}
 }
 
 /*

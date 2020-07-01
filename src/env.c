@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:59:41 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/01 14:01:42 by tmarx            ###   ########.fr       */
+/*   Updated: 2020/07/01 16:58:27 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ extern t_minishell g_minishell;
 
 char	*get_path(char *cmd)
 {
-	char				**paths;
+	char		**paths;
 	struct stat	buffer;
-	char				*file_name[2];
-	int					i;
+	char		*file_name[2];
+	int			i;
 
 	i = 0;
 	if (!stat(cmd, &buffer))
@@ -36,20 +36,15 @@ char	*get_path(char *cmd)
 	paths = ft_split(file_name[1], ':');
 	while (paths[i])
 	{
-		if (!(file_name[0] = (char *)ft_calloc(sizeof(char),
-			(ft_strlen(cmd) + ft_strlen(paths[i]) + 2))))
-			return (NULL);
-		file_name[0] = ft_strcat(file_name[0], paths[i]);
-		file_name[0] = ft_strcat(file_name[0], "/");
-		file_name[0] = ft_strcat(file_name[0], cmd);
+		create_filename(paths[i], cmd, file_name);
 		if (!stat(file_name[0], &buffer))
 		{
 			free(file_name[1]);
 			free_splits(paths);
 			return (file_name[0]);
 		}
-		i++;
 		free(file_name[0]);
+		i++;
 	}
 	free(file_name[1]);
 	free_splits(paths);

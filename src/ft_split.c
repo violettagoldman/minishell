@@ -6,13 +6,13 @@
 /*   By: tmarx <tmarx@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 13:21:40 by tmarx             #+#    #+#             */
-/*   Updated: 2020/06/29 15:50:18 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/01 16:48:11 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	count_words(char *s, char c)
+static int		count_words(char *s, char c)
 {
 	int	i;
 	int	count;
@@ -35,7 +35,7 @@ static int	count_words(char *s, char c)
 	return (count);
 }
 
-static char	*malloc_word(char *s, char c)
+static char		*malloc_word(char *s, char c)
 {
 	int		i;
 	char	*word;
@@ -55,7 +55,7 @@ static char	*malloc_word(char *s, char c)
 	return (word);
 }
 
-char		**ft_split(char const *s, char c)
+char			**ft_split(char const *s, char c)
 {
 	int		i;
 	char	**arr;
@@ -83,7 +83,7 @@ char		**ft_split(char const *s, char c)
 	return (arr);
 }
 
-void	free_splits(char **splits)
+void			free_splits(char **splits)
 {
 	int i;
 
