@@ -28,7 +28,6 @@
 # define GREEN "\e[92m"
 # define RED "\e[91m"
 # define BLUE "\e[94m"
-# define YELLOW "\e[93m"
 # define RESET "\e[0m"
 # define MAX_OUTPUTS 4096
 
