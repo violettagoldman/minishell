@@ -8,14 +8,14 @@ COUNT = 0
 define update
 	$(eval O_COUNT := $(shell find obj -iname "*.o" 2> /dev/null | wc -l | bc))
 	printf "\r["
-	printf '=%.0s' {0..${O_COUNT}}
+	printf "=%.0s" $(shell seq 0 ${O_COUNT})
 	printf ">"
 	$(eval COUNT := $(shell echo ${TOTAL} - ${O_COUNT} | bc))
 	printf "%${COUNT}s" "]"
 endef
 
 ifeq ($(D), 1)
-    CFLAGS += -fsanitize=address
+		CFLAGS += -fsanitize=address
 endif
 OS = $(shell uname -s)
 ifeq ($(OS), Linux)
