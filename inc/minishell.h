@@ -6,7 +6,7 @@
 /*   By: tmarx <tmarx@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 13:22:26 by tmarx             #+#    #+#             */
-/*   Updated: 2020/07/01 17:09:09 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/02 15:52:35 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_cmd			parse_command(char *cmd);
 void			print_cmd(t_cmd cmd);
 t_cmd			*parse_commands_pipe(char *cmd);
 void			print_prompt(void);
-void            print_prompt_git(char *dir, int fd);
+void			print_prompt_git(char *dir, int fd);
 void			set_status(int n);
 void			encode_command(char *cmd);
 void			handle_quote(int *quote, int *dquote, char *c);

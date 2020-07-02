@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:30 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/02 14:44:41 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/02 15:55:03 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,21 @@ void	print_prompt(void)
 }
 
 /*
-** Reads user input.
+** Reads user input. Block CTRL-D after user typed something but before he
+** presses Enter.
 ** @param	buffer	the buffer to read the user input in
 */
 
 void	read_command(char **buffer)
 {
-	if (!get_next_line(0, buffer))
+	int		i;
+	char	b[1];
+
+	i = get_next_line(1, buffer);
+	if (!i && !ft_strlen(*buffer))
 		quit();
+	while (!i)
+		i = read(1, b, 1);
 }
 
 /*
