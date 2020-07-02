@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:30 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/01 16:43:30 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/02 14:44:41 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,20 @@ void	quit(void)
 void	print_prompt(void)
 {
 	char	*dir;
-    int     fd;
+	int		fd;
 
 	dir = current_directory();
 	if ((fd = open(".git/HEAD", O_RDONLY)) > 0)
-        print_prompt_git(dir, fd);
-    else
-    {
-      ft_printf(BOLD);
-      if (g_minishell.status == 0)
-	  	ft_printf(GREEN"➜ "CYAN" %s "RESET, dir);
-	  else
-	  	ft_printf(RED"➜ "CYAN" %s "RESET, dir);
-    }
-    close(fd);
+		print_prompt_git(dir, fd);
+	else
+	{
+		ft_printf(BOLD);
+		if (g_minishell.status == 0)
+			ft_printf(GREEN"➜ "CYAN" %s "RESET, dir);
+		else
+			ft_printf(RED"➜ "CYAN" %s "RESET, dir);
+	}
+	close(fd);
 	free(dir);
 }
 

@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:39 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/06/29 14:58:40 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/02 14:57:33 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	handle_letter(int quote, int dquote, char *c)
 {
 	if ((quote || dquote) && *c == ' ')
 		*c = 1;
+	if ((quote || dquote) && *c == ';')
+		*c = 2;
 }
 
 /*
@@ -81,5 +83,7 @@ void	decode_command(char *str)
 	{
 		if (str[i] == 1)
 			str[i] = ' ';
+		if (str[i] == 2)
+			str[i] = ';';
 	}
 }
