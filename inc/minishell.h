@@ -27,6 +27,8 @@
 # define CYAN "\e[36m"
 # define GREEN "\e[92m"
 # define RED "\e[91m"
+# define BLUE "\e[94m"
+# define YELLOW "\e[93m"
 # define RESET "\e[0m"
 # define MAX_OUTPUTS 4096
 
@@ -58,6 +60,7 @@ t_cmd			parse_command(char *cmd);
 void			print_cmd(t_cmd cmd);
 t_cmd			*parse_commands_pipe(char *cmd);
 void			print_prompt(void);
+void            print_prompt_git(char *dir, int fd);
 void			set_status(int n);
 void			encode_command(char *cmd);
 void			handle_quote(int *quote, int *dquote, char *c);

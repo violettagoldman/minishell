@@ -56,18 +56,20 @@ void	quit(void)
 void	print_prompt(void)
 {
 	char	*dir;
+    int     fd;
 
 	dir = current_directory();
-	if (g_minishell.status == 0)
-	{
-		ft_printf(BOLD);
-		ft_printf(GREEN"➜ "CYAN" %s "RESET, dir);
-	}
-	else
-	{
-		ft_printf(BOLD);
-		ft_printf(RED"➜ "CYAN" %s "RESET, dir);
-	}
+	if ((fd = open(".git/HEAD", O_RDONLY)) > 0)
+        print_prompt_git(dir, fd);
+    else
+    {
+      ft_printf(BOLD);
+      if (g_minishell.status == 0)
+	  	ft_printf(GREEN"➜ "CYAN" %s "RESET, dir);
+	  else
+	  	ft_printf(RED"➜ "CYAN" %s "RESET, dir);
+    }
+    close(fd);
 	free(dir);
 }
 
