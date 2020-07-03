@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:59:33 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/01 16:52:46 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/03 14:09:45 by tmarx            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ void	set_status(int n)
 ** @param	cmd	the executed command
 */
 
-void	exec_cmd(t_cmd cmd)
+int		exec_cmd(t_cmd cmd)
 {
 	pid_t	pid;
 
 	if (builtin_parent(cmd))
 	{
 		free_cmd(cmd);
-		return ;
+		return (1);
 	}
 	pid = fork();
 	if (!pid)
@@ -65,6 +65,7 @@ void	exec_cmd(t_cmd cmd)
 	}
 	close_fd(cmd);
 	free_cmd(cmd);
+	return (g_minishell.status == 0);
 }
 
 /*

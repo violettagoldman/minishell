@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:47 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/03 12:31:11 by tmarx            ###   ########.fr       */
+/*   Updated: 2020/07/03 14:14:48 by tmarx            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,12 @@ void	parse_input(char *input)
 		cmds = parse_commands_pipe(commands[i++]);
 		j = 0;
 		while (cmds[j].cmd != NULL)
-			exec_cmd(cmds[j++]);
+		{
+			if (!exec_cmd(cmds[j]))
+				free_on_fail(cmds, &j);
+			else
+				j++;
+		}
 		free(cmds);
 	}
 	free(commands);

@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/01 16:04:40 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/01 16:44:44 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/03 14:14:17 by tmarx            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,17 @@ void	handle_input(t_cmd *cmd, char *arg)
 	if ((fd = open(arg, flags)) < 0)
 		ft_printf("minishell: cannot read %s\n", arg);
 	cmd->in = fd;
+}
+
+/*
+** If a command fails, free next ones.
+** @param cmds	the array of commands
+** @param j 		the index of the command that have failed
+*/
+
+void	free_on_fail(t_cmd *cmds, int *j)
+{
+	(*j)++;
+	while (cmds[*j].cmd)
+		free_cmd(cmds[(*j)++]);
 }
