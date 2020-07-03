@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:30 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/02 15:55:03 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/02 16:11:17 by tmarx            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,10 @@ void	read_command(char **buffer)
 
 	i = get_next_line(1, buffer);
 	if (!i && !ft_strlen(*buffer))
+	{
+		free(*buffer);
 		quit();
+	}
 	while (!i)
 		i = read(1, b, 1);
 }

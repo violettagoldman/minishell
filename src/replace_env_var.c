@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:22 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/06/29 16:30:29 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/03 12:37:47 by tmarx            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ char	*new_str(char *str, char *key, int a, int b)
 	free(value);
 	free(tmp[0]);
 	free(tmp[1]);
+	free(str);
 	return (res);
 }
 
