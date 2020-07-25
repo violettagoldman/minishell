@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:59:33 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/03 14:09:45 by tmarx            ###   ########.fr       */
+/*   Updated: 2020/07/25 21:03:24 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,9 @@ void	exec_on_child(t_cmd cmd)
 		exec_res = execve(cmd.cmd_abs, cmd.args, g_minishell.envp);
 		if (exec_res < 0)
 		{
-			ft_printf("minishell: %s: command not found\n", cmd.cmd);
+			write(2, "minishell: ", 11);
+			write(2, cmd.cmd, ft_strlen(cmd.cmd));
+			write(2, ": command not found\n", 20);
 			exit(127);
 		}
 	}
