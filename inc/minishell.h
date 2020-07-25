@@ -6,7 +6,7 @@
 /*   By: tmarx <tmarx@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 13:22:26 by tmarx             #+#    #+#             */
-/*   Updated: 2020/07/25 17:31:46 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/25 20:22:43 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void			handle_input(t_cmd *cmd, char *arg);
 void			exec_on_child(t_cmd cmd);
 void			free_on_fail(t_cmd *cmds, int *j);
 int				full_spaces(char *str);
+char			*remove_quotes(char *str);
 
 /*
 ** Signals
