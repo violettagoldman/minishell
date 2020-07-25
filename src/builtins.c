@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:59:58 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/01 14:30:06 by tmarx            ###   ########.fr       */
+/*   Updated: 2020/07/25 17:32:16 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,11 @@ void	ft_cd(t_cmd cmd)
 ** @param	cmd	the command executed by the user.
 */
 
-void	ft_pwd(t_cmd cmd)
+void	ft_pwd(void)
 {
 	char	buffer[1000];
 
-	if (cmd.argc == 1)
-		ft_printf("%s\n", getcwd(buffer, 1000));
-	else
-		ft_printf("pwd: too many arguments\n");
+	ft_printf("%s\n", getcwd(buffer, 1000));
 }
 
 /*
@@ -114,7 +111,7 @@ int		builtin(t_cmd cmd)
 	if (!ft_strcmp(cmd.cmd, "echo"))
 		ft_echo(cmd);
 	else if (!ft_strcmp(cmd.cmd, "pwd"))
-		ft_pwd(cmd);
+		ft_pwd();
 	else if (!ft_strcmp(cmd.cmd, "env"))
 		ft_env(cmd);
 	else

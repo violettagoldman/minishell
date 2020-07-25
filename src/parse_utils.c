@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:39 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/25 16:25:55 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/25 17:22:22 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,22 @@ void	decode_command(char *str)
 		if (str[i] == 2)
 			str[i] = ';';
 	}
+}
+
+/*
+** Check if a string contains only spaces.
+** @param	str	the string to check
+*/
+
+int		full_spaces(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (str[i] != ' ')
+			return (0);
+	}
+	return (1);
 }

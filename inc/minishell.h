@@ -6,7 +6,7 @@
 /*   By: tmarx <tmarx@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 13:22:26 by tmarx             #+#    #+#             */
-/*   Updated: 2020/07/25 16:09:45 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/25 17:31:46 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void			handle_output(int mode, t_cmd *cmd, char *arg);
 void			handle_input(t_cmd *cmd, char *arg);
 void			exec_on_child(t_cmd cmd);
 void			free_on_fail(t_cmd *cmds, int *j);
+int				full_spaces(char *str);
 
 /*
 ** Signals
@@ -109,7 +110,7 @@ void			ft_cd(t_cmd cmd);
 void			ft_export(t_cmd cmd);
 void			ft_unset(t_cmd cmd);
 void			ft_env(t_cmd cmd);
-void			ft_pwd(t_cmd cmd);
+void			ft_pwd(void);
 void			quit(int new_line);
 
 /*
