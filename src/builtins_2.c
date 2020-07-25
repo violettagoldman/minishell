@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:00:07 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/01 14:29:41 by tmarx            ###   ########.fr       */
+/*   Updated: 2020/07/25 16:09:17 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int		builtin_parent(t_cmd cmd)
 	else if (!ft_strcmp(cmd.cmd, "unset"))
 		ft_unset(cmd);
 	else if (!ft_strcmp(cmd.cmd, "exit"))
-		quit();
+		quit(0);
 	else
 		return (0);
 	return (1);

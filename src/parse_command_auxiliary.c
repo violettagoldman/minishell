@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/01 16:04:40 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/03 14:14:17 by tmarx            ###   ########.fr       */
+/*   Updated: 2020/07/25 16:29:14 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,20 @@
 
 void	init_cmd(t_cmd *cmd)
 {
+	int	i;
+
 	cmd->cmd_abs = NULL;
 	cmd->in = 0;
 	parse_outputs(cmd);
+	i = -1;
+	while (cmd->args[++i])
+	{
+		if (cmd->args[i][0] == 3)
+		{
+			free(cmd->args[i]);
+			cmd->args[i] = ft_strjoin("", "");
+		}
+	}
 }
 
 /*
