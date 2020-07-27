@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:59:58 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/25 17:32:16 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/27 10:55:15 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,15 @@ void	ft_cd(t_cmd cmd)
 		home = get_env("HOME");
 		chdir(home);
 		free(home);
+		set_status(0);
 	}
-	else if (cmd.argc > 2)
-		ft_printf("cd: too many arguments\n");
 	else if (chdir(cmd.args[1]) < 0)
+	{
 		ft_printf("cd: no such file or directory: %s\n", cmd.args[1]);
+		set_status(1);
+	}
+	else
+		set_status(0);
 }
 
 /*
@@ -92,10 +96,16 @@ void	ft_export(t_cmd cmd)
 		while (i < cmd.argc)
 		{
 			if ((sign = equality_sign_check(cmd.args[i])) == 1)
+			{
 				add_env(cmd.args[i]);
+				set_status(0);
+			}
 			else if (sign == -1)
+			{
 				ft_printf("minishell: export: `%s': not a valid identifier\n",
 						cmd.args[i]);
+				set_status(1);
+			}
 			i++;
 		}
 }

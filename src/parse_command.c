@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:47 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/25 20:47:42 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/27 10:25:05 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	encode_command(char *cmd)
 	i = -1;
 	while (cmd[++i])
 	{
-		if ((cmd[i] == '"' && cmd[i + 1] == '"') ||
-			(cmd[i] == '\'' && cmd[i + 1] == '\''))
+		if ((cmd[i] == '"' && cmd[i + 1] == '"' && !quote) ||
+			(cmd[i] == '\'' && cmd[i + 1] == '\'' && !dquote))
 		{
 			cmd[i] = 3;
 			cmd[i + 1] = 3;
