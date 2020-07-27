@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:47 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/27 10:25:05 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/27 11:09:42 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ t_cmd	parse_command(char *cmd)
 {
 	char	**pieces;
 	int		i;
+	int		j;
 	t_cmd	res;
 
 	i = 0;
@@ -123,7 +124,9 @@ t_cmd	parse_command(char *cmd)
 		res.out[i++] = -1;
 	pieces = ft_split(cmd, ' ');
 	free(cmd);
-	pieces[0] = remove_quotes(pieces[0]);
+	j = -1;
+	while (pieces[++j])
+		pieces[j] = remove_quotes(pieces[j]);
 	res.cmd = pieces[0];
 	res.argc = 0;
 	while (pieces[res.argc] != NULL)

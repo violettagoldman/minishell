@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:00:07 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/27 10:47:46 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/27 11:11:37 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	ft_env(t_cmd cmd)
 	{
 		while (g_minishell.envp[i])
 			ft_printf("%s\n", g_minishell.envp[i++]);
-		exit(0);
 	}
 	else
 	{

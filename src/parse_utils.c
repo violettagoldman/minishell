@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:39 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/25 17:22:22 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/27 11:01:13 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ void	handle_quote(int *quote, int *dquote, char *c)
 	if (!*quote && !*dquote)
 	{
 		*quote = 1;
-		*c = ' ';
+		*c = 3;
 	}
 	else if (*quote && !*dquote)
 	{
 		*quote = 0;
-		*c = ' ';
+		*c = 3;
 	}
 }
 
@@ -44,12 +44,12 @@ void	handle_dquote(int *quote, int *dquote, char *c)
 {
 	if (!*quote && !*dquote)
 	{
-		*c = ' ';
+		*c = 3;
 		*dquote = 1;
 	}
 	else if (!*quote && *dquote)
 	{
-		*c = ' ';
+		*c = 3;
 		*dquote = 0;
 	}
 }

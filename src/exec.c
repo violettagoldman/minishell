@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:59:33 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/25 21:03:24 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/27 11:20:59 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,10 @@ void	exec_on_child(t_cmd cmd)
 		if (cmd.in < 0)
 			exit(1);
 		cmd.cmd_abs = get_path(cmd.cmd);
-		exec_res = execve(cmd.cmd_abs, cmd.args, g_minishell.envp);
+		if (!cmd.cmd_abs)
+			exec_res = -1;
+		else
+			exec_res = execve(cmd.cmd_abs, cmd.args, g_minishell.envp);
 		if (exec_res < 0)
 		{
 			write(2, "minishell: ", 11);

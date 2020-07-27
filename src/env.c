@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:59:41 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/01 16:58:27 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/27 11:22:28 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ char	*get_path(char *cmd)
 	if (!stat(cmd, &buffer))
 		return (ft_strjoin(cmd, ""));
 	file_name[1] = get_env("PATH");
+	if (!file_name[1])
+		return (NULL);
 	paths = ft_split(file_name[1], ':');
 	while (paths[i])
 	{
