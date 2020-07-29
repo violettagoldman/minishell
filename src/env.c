@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:59:41 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/27 11:22:28 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/29 10:02:56 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,13 @@ char	*get_path(char *cmd)
 		create_filename(paths[i], cmd, file_name);
 		if (!stat(file_name[0], &buffer))
 		{
-			free(file_name[1]);
-			free_splits(paths);
+			free_file_name_and_paths(file_name[1], paths);
 			return (file_name[0]);
 		}
 		free(file_name[0]);
 		i++;
 	}
-	free(file_name[1]);
-	free_splits(paths);
+	free_file_name_and_paths(file_name[1], paths);
 	return (NULL);
 }
 

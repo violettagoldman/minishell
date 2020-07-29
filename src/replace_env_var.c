@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:22 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/27 11:51:17 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/29 10:31:13 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ char	*filter_nonexistent(char *str)
 	while (split[i])
 	{
 		j = 0;
-		while (split[i][j] && (split[i][j] != '$' || !is_alphanum(split[i][j + 1])))
+		while (split[i][j] && (split[i][j] != '$'
+			|| !is_alphanum(split[i][j + 1])))
 			j++;
 		res[1] = ft_substr(split[i], 0, j);
 		res[2] = ft_strjoin(res[0], res[1]);

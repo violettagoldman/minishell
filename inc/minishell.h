@@ -6,7 +6,7 @@
 /*   By: tmarx <tmarx@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 13:22:26 by tmarx             #+#    #+#             */
-/*   Updated: 2020/07/27 12:14:09 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/29 10:22:09 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void			exec_on_child(t_cmd cmd);
 void			free_on_fail(t_cmd *cmds, int *j);
 int				full_spaces(char *str);
 char			*remove_quotes(char *str);
+void			parse_command_helper(char ***pieces, char *cmd);
 
 /*
 ** Signals
@@ -99,6 +100,7 @@ int				equality_sign_check(char *var);
 char			*replace(char *str);
 char			**copy_envp(char **envp);
 void			create_filename(char *path, char *cmd, char *file_name[2]);
+void			free_file_name_and_paths(char *file_name, char **paths);
 
 /*
 ** Built-ins

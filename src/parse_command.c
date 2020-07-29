@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:47 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/29 09:41:09 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/29 10:29:20 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,6 @@ void	encode_command(char *cmd)
 	i = -1;
 	while (cmd[++i])
 	{
-		// if ((cmd[i] == '"' && cmd[i + 1] == '"' && !quote) ||
-		// 	(cmd[i] == '\'' && cmd[i + 1] == '\'' && !dquote))
-		// {
-		// 	cmd[i] = 3;
-		// 	cmd[i + 1] = 3;
-		// }
 		if (i > 0 && cmd[i - 1] == '\\' &&
 		((cmd[i] == '\'' && !dquote && !quote) || (cmd[i] == '"' && !quote)))
 			cmd[i - 1] = 3;
@@ -121,17 +115,12 @@ t_cmd	parse_command(char *cmd)
 {
 	char	**pieces;
 	int		i;
-	int		j;
 	t_cmd	res;
 
 	i = 0;
 	while (i < MAX_OUTPUTS)
 		res.out[i++] = -1;
-	pieces = ft_split(cmd, ' ');
-	free(cmd);
-	j = -1;
-	while (pieces[++j])
-		pieces[j] = remove_quotes(pieces[j]);
+	parse_command_helper(&pieces, cmd);
 	res.cmd = pieces[0];
 	res.argc = 0;
 	while (pieces[res.argc] != NULL)
