@@ -6,7 +6,7 @@
 /*   By: tmarx <tmarx@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 13:22:26 by tmarx             #+#    #+#             */
-/*   Updated: 2020/07/29 10:22:09 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/29 13:18:23 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct	s_minishell
 
 void			prompt(void);
 int				exec_cmd(t_cmd cmd);
+void			exec_cmd_helper(pid_t pid);
 void			parse_input(char *cmd);
 t_cmd			parse_command(char *cmd);
 void			print_cmd(t_cmd cmd);
