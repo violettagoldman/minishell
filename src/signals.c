@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:57:33 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/29 08:17:23 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/29 11:11:57 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void	handle_ctrl_c(int signal)
 	ft_printf("\n");
 	if (!g_minishell.pid)
 	{
+		set_status(130);
 		print_prompt();
-		set_status(1);
 	}
 	else
 		kill(g_minishell.pid, signal);

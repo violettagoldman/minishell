@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:59:58 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/27 10:55:15 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/29 10:49:12 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,12 @@ void	ft_cd(t_cmd cmd)
 {
 	char	*home;
 
-	if (cmd.argc == 1)
+	if (cmd.argc > 2)
+	{
+		ft_printf("minishell: cd: too many arguments\n");
+		set_status(1);
+	}
+	else if (cmd.argc == 1)
 	{
 		home = get_env("HOME");
 		chdir(home);
@@ -60,7 +65,8 @@ void	ft_cd(t_cmd cmd)
 	}
 	else if (chdir(cmd.args[1]) < 0)
 	{
-		ft_printf("cd: no such file or directory: %s\n", cmd.args[1]);
+		ft_printf("minishell: cd: no such file or directory: %s\n",
+			cmd.args[1]);
 		set_status(1);
 	}
 	else

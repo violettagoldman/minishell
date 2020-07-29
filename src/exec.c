@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:59:33 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/27 11:20:59 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/29 11:16:49 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ int		exec_cmd(t_cmd cmd)
 	{
 		g_minishell.pid = pid;
 		wait(&pid);
-		set_status(WEXITSTATUS(pid));
+		if (pid == 2)
+			set_status(130);
+		else
+			set_status(WEXITSTATUS(pid));
 		g_minishell.pid = 0;
 	}
 	close_fd(cmd);
