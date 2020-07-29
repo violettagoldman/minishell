@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:00:07 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/27 12:14:26 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/29 08:22:45 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int		equality_sign_check(char *var)
 	while (var[i])
 	{
 		if (i == 0 && var[i] == '=')
+			return (-1);
+		if (var[i] == ' ')
 			return (-1);
 		if (var[i] == '=')
 			return (1);

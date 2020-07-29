@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:47 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/27 11:09:42 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/29 09:41:09 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,18 @@ void	encode_command(char *cmd)
 	i = -1;
 	while (cmd[++i])
 	{
-		if ((cmd[i] == '"' && cmd[i + 1] == '"' && !quote) ||
-			(cmd[i] == '\'' && cmd[i + 1] == '\'' && !dquote))
-		{
+		// if ((cmd[i] == '"' && cmd[i + 1] == '"' && !quote) ||
+		// 	(cmd[i] == '\'' && cmd[i + 1] == '\'' && !dquote))
+		// {
+		// 	cmd[i] = 3;
+		// 	cmd[i + 1] = 3;
+		// }
+		if (i > 0 && cmd[i - 1] == '\\' &&
+		((cmd[i] == '\'' && !dquote && !quote) || (cmd[i] == '"' && !quote)))
+			cmd[i - 1] = 3;
+		else if (i > 0 && cmd[i - 1] == '\\' && cmd[i] == '\\' && !quote)
 			cmd[i] = 3;
-			cmd[i + 1] = 3;
-		}
-		if (cmd[i] == '\'')
+		else if (cmd[i] == '\'')
 			handle_quote(&quote, &dquote, &cmd[i]);
 		else if (cmd[i] == '"')
 			handle_dquote(&quote, &dquote, &cmd[i]);
