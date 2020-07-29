@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:30 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/25 16:08:56 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/27 12:14:36 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ char	*current_directory(void)
 ** Exits minishell.
 */
 
-void	quit(int new_line)
+void	quit(int new_line, int status)
 {
 	free_splits(g_minishell.envp);
 	ft_printf("exit");
 	if (new_line)
 		ft_printf("\n");
-	exit(0);
+	exit(status);
 }
 
 /*
@@ -91,7 +91,7 @@ void	read_command(char **buffer)
 	if (!i && !ft_strlen(*buffer))
 	{
 		free(*buffer);
-		quit(1);
+		quit(1, 0);
 	}
 	while (!i)
 		i = read(1, b, 1);

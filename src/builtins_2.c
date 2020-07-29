@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:00:07 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/27 11:11:37 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/27 12:14:26 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,40 @@ void	ft_env(t_cmd cmd)
 }
 
 /*
+** Builtin that exits minishell.
+** @param cmd	the command executed by the user.
+*/
+
+void	ft_exit(t_cmd cmd)
+{
+	int i;
+	int ok;
+
+	if (cmd.argc == 1)
+		quit(0, 0);
+	else if (cmd.argc == 2)
+	{
+		i = -1;
+		ok = 1;
+		while (cmd.args[1][++i])
+		{
+			if (cmd.args[1][i] > '9' || cmd.args[1][i] < '0')
+				ok = 0;
+		}
+		if (ok)
+			quit(0, ft_atoi(&cmd.args[1]));
+		else
+		{
+			ft_printf("minishell: exit: %s: numeric argument required\n",
+				cmd.args[1]);
+			quit(0, 255);
+		}
+	}
+	else
+		ft_printf("minishell: exit: too many arguments\n");
+}
+
+/*
 ** Takes a command containing a builtin and executes the associated function on.
 ** parent process.
 ** @param	cmd	the command executed by the user.
@@ -94,7 +128,7 @@ int		builtin_parent(t_cmd cmd)
 	else if (!ft_strcmp(cmd.cmd, "unset"))
 		ft_unset(cmd);
 	else if (!ft_strcmp(cmd.cmd, "exit"))
-		quit(0);
+		ft_exit(cmd);
 	else
 		return (0);
 	return (1);

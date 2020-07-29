@@ -6,7 +6,7 @@
 /*   By: tmarx <tmarx@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 13:22:26 by tmarx             #+#    #+#             */
-/*   Updated: 2020/07/25 20:22:43 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/07/27 12:14:09 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void			ft_export(t_cmd cmd);
 void			ft_unset(t_cmd cmd);
 void			ft_env(t_cmd cmd);
 void			ft_pwd(void);
-void			quit(int new_line);
+void			quit(int new_line, int status);
 
 /*
 ** Libft

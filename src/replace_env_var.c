@@ -6,13 +6,24 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:22 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/03 12:37:47 by tmarx            ###   ########.fr       */
+/*   Updated: 2020/07/27 11:51:17 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 extern t_minishell g_minishell;
+
+/*
+** Is a char alphanumeric. Used to filter $c where c is the char to check.
+** @param	c	the char to check
+*/
+
+int		is_alphanum(char c)
+{
+	return ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z')
+		|| (c >= 'A' && c < 'Z'));
+}
 
 /*
 ** Creates a new string that replaces variable key at position a to b with
@@ -65,7 +76,7 @@ char	*filter_nonexistent(char *str)
 	while (split[i])
 	{
 		j = 0;
-		while (split[i][j] && split[i][j] != '$')
+		while (split[i][j] && (split[i][j] != '$' || !is_alphanum(split[i][j + 1])))
 			j++;
 		res[1] = ft_substr(split[i], 0, j);
 		res[2] = ft_strjoin(res[0], res[1]);
