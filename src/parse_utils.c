@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:39 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/27 11:01:13 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/08/10 22:57:23 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,14 @@ void	handle_letter(int quote, int dquote, char *c)
 		*c = 1;
 	if ((quote || dquote) && *c == ';')
 		*c = 2;
+	if (quote && *c == '$')
+		*c = 4;
+	if ((quote || dquote) && *c == '|')
+		*c = 5;
+	if ((quote || dquote) && *c == '>')
+		*c = 7;
+	if ((quote || dquote) && *c == '<')
+		*c = 8;
 }
 
 /*
@@ -85,6 +93,16 @@ void	decode_command(char *str)
 			str[i] = ' ';
 		if (str[i] == 2)
 			str[i] = ';';
+		if (str[i] == 4)
+			str[i] = '$';
+		if (str[i] == 5)
+			str[i] = '|';
+		if (str[i] == 6)
+			str[i] = ' ';
+		if (str[i] == 7)
+			str[i] = '>';
+		if (str[i] == 8)
+			str[i] = '<';
 	}
 }
 

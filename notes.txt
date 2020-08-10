@@ -1,0 +1,7 @@
+What have I done ?
+
+- Escape |
+- Escape ' '
+- Escape >
+- Escape <
+- export '' -> now gives an error

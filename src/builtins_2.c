@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:00:07 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/29 08:22:45 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/08/10 23:00:57 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int		equality_sign_check(char *var)
 	int i;
 
 	i = 0;
+	if (!ft_strlen(var))
+		return (-1);
 	while (var[i])
 	{
 		if (i == 0 && var[i] == '=')
@@ -64,7 +66,7 @@ void	ft_unset(t_cmd cmd)
 ** @param	cmd	the command executed by the user.
 */
 
-void	ft_env(t_cmd cmd)
+void	ft_env(t_cmd cmd, int print_declare)
 {
 	int i;
 
@@ -72,7 +74,11 @@ void	ft_env(t_cmd cmd)
 	if (cmd.argc == 1)
 	{
 		while (g_minishell.envp[i])
+		{
+			if (print_declare)
+				ft_printf("declare -x ");
 			ft_printf("%s\n", g_minishell.envp[i++]);
+		}
 	}
 	else
 	{
@@ -92,14 +98,15 @@ void	ft_exit(t_cmd cmd)
 	int ok;
 
 	if (cmd.argc == 1)
-		quit(0, 0);
+		quit(1, g_minishell.status);
 	else if (cmd.argc == 2)
 	{
 		i = -1;
 		ok = 1;
 		while (cmd.args[1][++i])
 		{
-			if (cmd.args[1][i] > '9' || cmd.args[1][i] < '0')
+			if ((cmd.args[1][i] > '9' || cmd.args[1][i] < '0')
+				&& (cmd.args[1][i] != '-' && cmd.args[1][i] != '+'))
 				ok = 0;
 		}
 		if (ok)
@@ -108,7 +115,7 @@ void	ft_exit(t_cmd cmd)
 		{
 			ft_printf("minishell: exit: %s: numeric argument required\n",
 				cmd.args[1]);
-			quit(0, 255);
+			quit(1, 255);
 		}
 	}
 	else

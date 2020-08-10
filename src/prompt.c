@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:30 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/27 12:14:36 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/08/10 18:09:48 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	read_command(char **buffer)
 	if (!i && !ft_strlen(*buffer))
 	{
 		free(*buffer);
-		quit(1, 0);
+		quit(1, g_minishell.status);
 	}
 	while (!i)
 		i = read(1, b, 1);
@@ -111,6 +111,12 @@ void	prompt(void)
 		print_prompt();
 		handle_signals();
 		read_command(&cmd);
-		parse_input(cmd);
+		if (!check_syntax(cmd))
+		{
+			ft_printf("minishell: syntax error\n");
+			set_status(2);
+		}
+		else
+			parse_input(cmd);
 	}
 }

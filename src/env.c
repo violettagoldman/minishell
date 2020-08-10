@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:59:41 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/29 10:02:56 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/08/10 18:20:19 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ char	*get_path(char *cmd)
 	int			i;
 
 	i = 0;
-	if (!stat(cmd, &buffer))
-		return (ft_strjoin(cmd, ""));
+	
+	if (!ft_strncmp("./", cmd, 2) || !ft_strncmp("/", cmd, 1)) 
+		return (get_relative_path(cmd));
 	file_name[1] = get_env("PATH");
 	if (!file_name[1])
 		return (NULL);

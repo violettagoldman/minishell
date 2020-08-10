@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:59:58 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/29 10:49:12 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/08/10 18:27:53 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_echo(t_cmd cmd)
 	arg = 0;
 	if (cmd.argc > 1)
 	{
-		if (!ft_strcmp(cmd.args[1], "-n"))
+		if (cmd.args[1][0] == '-' && !contains_only('n', cmd.args[1] + 1))
 			arg = 1;
 		i += arg;
 		while (cmd.args[i])
@@ -97,7 +97,7 @@ void	ft_export(t_cmd cmd)
 
 	i = 1;
 	if (cmd.argc == 1)
-		ft_env(cmd);
+		ft_env(cmd, 1);
 	else
 		while (i < cmd.argc)
 		{
@@ -129,7 +129,7 @@ int		builtin(t_cmd cmd)
 	else if (!ft_strcmp(cmd.cmd, "pwd"))
 		ft_pwd();
 	else if (!ft_strcmp(cmd.cmd, "env"))
-		ft_env(cmd);
+		ft_env(cmd, 0);
 	else
 		return (0);
 	exit(0);

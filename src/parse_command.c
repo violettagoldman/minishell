@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:47 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/07/29 11:24:48 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/08/10 22:55:29 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,36 @@ void	encode_command(char *cmd)
 			cmd[i - 1] = 3;
 		else if (i > 0 && cmd[i - 1] == '\\' && cmd[i] == '\\' && !quote)
 			cmd[i] = 3;
+		else if (i > 0 && cmd[i - 1] == '\\' && cmd[i] == '$' && !quote)
+		{
+			cmd[i - 1] = 3;
+			cmd[i] = 4;
+		}
+		else if (i > 0 && cmd[i - 1] == '\\' && cmd[i] == ';' && !quote && !dquote)
+		{
+			cmd[i - 1] = 3;
+			cmd[i] = 2;
+		}
+		else if (i > 0 && cmd[i - 1] == '\\' && cmd[i] == '|' && !quote && !dquote)
+		{
+			cmd[i - 1] = 3;
+			cmd[i] = 5;
+		}
+		else if (i > 0 && cmd[i - 1] == '\\' && cmd[i] == ' ' && !quote && !dquote)
+		{
+			cmd[i - 1] = 3;
+			cmd[i] = 6;
+		}
+		else if (i > 0 && cmd[i - 1] == '\\' && cmd[i] == '>' && !quote && !dquote)
+		{
+			cmd[i - 1] = 3;
+			cmd[i] = 7;
+		}
+		else if (i > 0 && cmd[i - 1] == '\\' && cmd[i] == '<' && !quote && !dquote)
+		{
+			cmd[i - 1] = 3;
+			cmd[i] = 8;
+		}
 		else if (cmd[i] == '\'')
 			handle_quote(&quote, &dquote, &cmd[i]);
 		else if (cmd[i] == '"')
@@ -54,8 +84,9 @@ void	parse_input(char *input)
 	int		j;
 	t_cmd	*cmds;
 
-	input = replace(input);
+	//input = replace(input);
 	encode_command(input);
+	input = replace(input);
 	i = 0;
 	commands = ft_split(input, ';');
 	free(input);
@@ -127,14 +158,14 @@ t_cmd	parse_command(char *cmd)
 		res.argc++;
 	if (!(res.args = ft_calloc(i + 1, sizeof(char *))))
 		return (res);
-	i = 0;
-	while (pieces[i] != NULL)
-	{
+	i = -1;
+	while (pieces[++i] != NULL)
 		res.args[i] = pieces[i];
-		decode_command(res.args[i++]);
-	}
 	free(pieces);
 	init_cmd(&res);
+	i = 0;
+	while (res.args[i])
+		decode_command(res.args[i++]);
 	return (res);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tmarx <tmarx@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 13:22:26 by tmarx             #+#    #+#             */
-/*   Updated: 2020/07/29 13:18:23 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/08/10 18:29:19 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void			free_on_fail(t_cmd *cmds, int *j);
 int				full_spaces(char *str);
 char			*remove_quotes(char *str);
 void			parse_command_helper(char ***pieces, char *cmd);
+int				check_syntax(char *s);
 
 /*
 ** Signals
@@ -95,6 +96,7 @@ void			handle_signals(void);
 
 char			*get_env(char *var);
 char			*get_path(char *cmd);
+char			*get_relative_path(char *cmd);
 void			add_env(char *var);
 void			remove_env(char *var);
 int				equality_sign_check(char *var);
@@ -113,7 +115,7 @@ void			ft_echo(t_cmd cmd);
 void			ft_cd(t_cmd cmd);
 void			ft_export(t_cmd cmd);
 void			ft_unset(t_cmd cmd);
-void			ft_env(t_cmd cmd);
+void			ft_env(t_cmd cmd, int print_declare);
 void			ft_pwd(void);
 void			quit(int new_line, int status);
 
@@ -129,5 +131,11 @@ char			*ft_strcat(char *dest, char *src);
 char			*ft_strjoin(char *s1, char *s2);
 char			*ft_substr(char *s, int start, int len);
 char			*ft_itoa(int n);
+
+/*
+** Utilities
+*/
+
+int				contains_only(char c, char *s);
 
 #endif
