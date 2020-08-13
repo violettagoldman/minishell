@@ -6,7 +6,7 @@
 /*   By: tmarx <tmarx@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 13:22:26 by tmarx             #+#    #+#             */
-/*   Updated: 2020/08/13 15:00:26 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/08/13 16:30:38 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,5 +144,7 @@ char			*ft_itoa(int n);
 int				contains_only(char c, char *s);
 int				get_mode(char *c);
 void			set_escape(char *cmd, int i, char c, int *flag);
+void			exit_syntax(char *input);
+void			decode_command_chevrons(t_cmd *cmd);
 
 #endif

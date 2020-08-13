@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:59:33 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/08/13 12:00:40 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/08/13 16:08:02 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	free_cmd(t_cmd cmd)
 	i = 0;
 	while (cmd.args[i])
 		free(cmd.args[i++]);
+	free(cmd.cmd);
 	free(cmd.args - cmd.offset);
 	free(cmd.cmd_abs);
 }

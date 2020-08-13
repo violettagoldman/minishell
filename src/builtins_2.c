@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:00:07 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/08/13 13:46:03 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/08/13 16:57:20 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,12 @@ void	ft_unset(t_cmd cmd)
 		return ;
 	else
 		while (i < cmd.argc)
-			remove_env(cmd.args[i++]);
+		{
+			if (equality_sign_check(cmd.args[i++]) == -1)
+				ft_printf("minishell: unset: `': not a valid identifier\n");
+			else
+				remove_env(cmd.args[i]);
+		}
 }
 
 /*

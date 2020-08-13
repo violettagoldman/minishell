@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:39 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/08/10 22:57:23 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/08/13 16:26:42 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,6 @@ void	decode_command(char *str)
 			str[i] = '|';
 		if (str[i] == 6)
 			str[i] = ' ';
-		if (str[i] == 7)
-			str[i] = '>';
-		if (str[i] == 8)
-			str[i] = '<';
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:47 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/08/13 15:08:37 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/08/13 16:30:23 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,7 @@ void	parse_input(char *input)
 	encode_command(input);
 	if (!check_syntax(input))
 	{
-		ft_printf("minishell: syntax error\n");
-		set_status(2);
+		exit_syntax(input);
 		return ;
 	}
 	input = replace(input);
@@ -160,9 +159,10 @@ t_cmd	parse_command(char *cmd)
 	while (pieces[++i] != NULL)
 		res.args[i] = pieces[i];
 	free(pieces);
-	init_cmd(&res);
 	i = 0;
 	while (res.args[i])
 		decode_command(res.args[i++]);
+	init_cmd(&res);
+	decode_command_chevrons(&res);
 	return (res);
 }

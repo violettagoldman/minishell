@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:59:58 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/08/10 18:27:53 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/08/13 16:43:34 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,23 @@
 void	ft_echo(t_cmd cmd)
 {
 	int		i;
-	int		arg;
+	int		j;
 
-	i = 1;
-	arg = 0;
+	i = 0;
+	j = 1;
 	if (cmd.argc > 1)
 	{
-		if (cmd.args[1][0] == '-' && !contains_only('n', cmd.args[1] + 1))
-			arg = 1;
-		i += arg;
+		while (cmd.args[j] && cmd.args[j][0] == '-' &&
+				!contains_only('n', cmd.args[j] + 1))
+			j++;
+		i += j;
 		while (cmd.args[i])
 		{
 			ft_printf(cmd.args[i++]);
 			if (i < cmd.argc)
 				ft_printf(" ");
 		}
-		if (!arg)
+		if (j <= 1)
 			ft_printf("\n");
 	}
 	else
