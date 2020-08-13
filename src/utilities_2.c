@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/10 12:23:51 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/08/11 10:37:30 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/08/13 12:35:12 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,30 @@ void	parse_first_chevron(t_cmd *cmd)
 
 	if (!cmd->argc)
 		return ;
-	if (!ft_strcmp(cmd->args[0], ">") || !ft_strcmp(cmd->args[0], "<"))
-	{
-		i = cmd->argc - 1;
-		while (!ft_strncmp(cmd->args[i], "-", 1))
-			i--;
-		cmd->cmd = cmd->args[i];
-	}
+	i = 0;
+	while (cmd->args[i] && (!ft_strncmp(cmd->args[i], ">", 1) ||
+		!ft_strcmp(cmd->args[i], "<")))
+		i += 2;
+	if (!cmd->args[i])
+		cmd->cmd = NULL;
+	else
+		cmd->cmd = ft_strjoin(cmd->args[i], "");
 }
+
+/*
+** Returns the file mode for a gievn string, > -> 1, >> -> 2, < -> 3
+** @param	c	the string to check
+** @return		the mode of the string
+*/
+
+int		get_mode(char *c)
+{
+	if (!ft_strcmp(c, ">"))
+		return (1);
+	if (!ft_strcmp(c, ">>"))
+		return (2);
+	if (!ft_strcmp(c, "<"))
+		return (3);
+	return (0);
+}
+

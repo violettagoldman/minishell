@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:47 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/08/11 11:52:50 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/08/13 12:38:09 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,13 @@ void	parse_input(char *input)
 	int		j;
 	t_cmd	*cmds;
 
-	//input = replace(input);
 	encode_command(input);
+	if (!check_syntax(input))
+	{
+		ft_printf("minishell: syntax error\n");
+		set_status(2);
+		return ;
+	}
 	input = replace(input);
 	i = 0;
 	commands = ft_split(input, ';');
@@ -152,7 +157,6 @@ t_cmd	parse_command(char *cmd)
 	while (i < MAX_OUTPUTS)
 		res.out[i++] = -1;
 	parse_command_helper(&pieces, cmd);
-	res.cmd = pieces[0];
 	res.argc = 0;
 	while (pieces[res.argc] != NULL)
 		res.argc++;
@@ -169,63 +173,3 @@ t_cmd	parse_command(char *cmd)
 	return (res);
 }
 
-/*
-** Takes a single command object, and parses command outputs.
-** @param	cmd	the command to parse
-*/
-
-void	parse_outputs(t_cmd *cmd)
-{
-	int	mode;
-	int	i;
-
-	i = -1;
-	mode = 0;
-	while (++i < cmd->argc)
-	{
-		if (set_mode(&mode, cmd->args[i]))
-			(void)mode;
-		else if (mode == 1 || mode == 2)
-			handle_output(mode, cmd, cmd->args[i]);
-		else if (mode == 3)
-			handle_input(cmd, cmd->args[i]);
-		else if (cmd->args[i] == cmd->cmd)
-			mode = 0;
-		if (mode > 0)
-		{
-			free(cmd->args[i]);
-			cmd->args[i] = NULL;
-		}
-	}
-	i = 0;
-	while (cmd->args[i])
-		i++;
-	cmd->argc = i;
-}
-
-/*
-** Parse inputs and outputs before the command, and remove them.
-** @param	cmd	the command to parse
-*/
-
-void	parse_outputs_before(t_cmd *cmd)
-{
-	int	mode;
-	int	i;
-
-	i = 0;
-	mode = set_mode(&mode, cmd->args[i]);
-	while (mode > 0)
-	{
-		ft_printf("mode: %d\n", mode);
-		if (i % 2 == 0)
-		{
-			i++;
-			mode = 0;
-			set_mode(&mode, cmd->args[i]);
-		}
-		else
-			i++;
-	}
-	cmd->args = (cmd->args + i);
-}

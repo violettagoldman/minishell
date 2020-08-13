@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:30 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/08/10 18:09:48 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/08/13 12:39:51 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,12 +111,6 @@ void	prompt(void)
 		print_prompt();
 		handle_signals();
 		read_command(&cmd);
-		if (!check_syntax(cmd))
-		{
-			ft_printf("minishell: syntax error\n");
-			set_status(2);
-		}
-		else
-			parse_input(cmd);
+		parse_input(cmd);
 	}
 }

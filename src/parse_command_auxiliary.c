@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/01 16:04:40 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/08/11 11:41:20 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/08/13 12:22:32 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	init_cmd(t_cmd *cmd)
 	cmd->in = 0;
 	parse_first_chevron(cmd);
 	parse_outputs_before(cmd);
+	set_argc(cmd);
 	parse_outputs(cmd);
 	i = -1;
 	while (cmd->args[++i])
