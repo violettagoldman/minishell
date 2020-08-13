@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 15:00:07 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/08/10 23:00:57 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/08/13 13:46:03 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,11 +112,7 @@ void	ft_exit(t_cmd cmd)
 		if (ok)
 			quit(0, ft_atoi(&cmd.args[1]));
 		else
-		{
-			ft_printf("minishell: exit: %s: numeric argument required\n",
-				cmd.args[1]);
-			quit(1, 255);
-		}
+			exit_message(cmd.args[1]);
 	}
 	else
 		ft_printf("minishell: exit: too many arguments\n");

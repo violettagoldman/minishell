@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 11:39:51 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/08/13 12:22:24 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/08/13 14:58:21 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,22 @@ void	set_argc(t_cmd *cmd)
 	while (cmd->args[i])
 		i++;
 	cmd->argc = i;
+}
+
+void	exit_message(char *arg)
+{
+	ft_printf("minishell: exit: %s: numeric argument required\n", arg);
+	quit(1, 255);
+}
+
+void	set_escape(char *cmd, int i, char c, int *flag)
+{
+	if (cmd[i] == '\\' && cmd[i - 1] == '\\')
+		cmd[i] = 3;
+	else
+	{
+		cmd[i - 1] = 3;
+		cmd[i] = c;
+	}
+	*flag = 1;
 }

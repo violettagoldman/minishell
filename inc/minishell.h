@@ -6,7 +6,7 @@
 /*   By: tmarx <tmarx@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 13:22:26 by tmarx             #+#    #+#             */
-/*   Updated: 2020/08/13 11:57:40 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/08/13 15:00:26 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void			parse_command_helper(char ***pieces, char *cmd);
 int				check_syntax(char *s);
 void			parse_first_chevron(t_cmd *cmd);
 void			set_argc(t_cmd *cmd);
+void			exit_message(char *arg);
 
 /*
 ** Signals
@@ -142,5 +143,6 @@ char			*ft_itoa(int n);
 
 int				contains_only(char c, char *s);
 int				get_mode(char *c);
+void			set_escape(char *cmd, int i, char c, int *flag);
 
 #endif

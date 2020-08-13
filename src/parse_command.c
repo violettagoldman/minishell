@@ -6,11 +6,35 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:47 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/08/13 12:38:09 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/08/13 15:08:37 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int		escape_backslashes(int i, char *cmd, int quote, int dquote)
+{
+	int flag;
+
+	flag = 0;
+	if (i > 0 && cmd[i - 1] == '\\' && cmd[i] == '\\' && !quote)
+		set_escape(cmd, i, 3, &flag);
+	else if (i > 0 && cmd[i - 1] == '\\' && cmd[i] == '$' && !quote)
+		set_escape(cmd, i, 4, &flag);
+	else if (i > 0 && cmd[i - 1] == '\\' && cmd[i] == ';' && !quote && !dquote)
+		set_escape(cmd, i, 2, &flag);
+	else if (i > 0 && cmd[i - 1] == '\\' && cmd[i] == '|' && !quote && !dquote)
+		set_escape(cmd, i, 5, &flag);
+	else if (i > 0 && cmd[i - 1] == '\\' && cmd[i] == ' ' && !quote && !dquote)
+		set_escape(cmd, i, 6, &flag);
+	else if (i > 0 && cmd[i - 1] == '\\' && cmd[i] == '>' && !quote && !dquote)
+		set_escape(cmd, i, 7, &flag);
+	else if (i > 0 && cmd[i - 1] == '\\' && cmd[i] == '<' && !quote && !dquote)
+		set_escape(cmd, i, 8, &flag);
+	else if (i > 0 && cmd[i - 1] == '\\' && !quote && !dquote)
+		set_escape(cmd, i, cmd[i], &flag);
+	return (flag);
+}
 
 /*
 ** Replace all spaces between double and single quotes by CTRL ascii character.
@@ -31,38 +55,8 @@ void	encode_command(char *cmd)
 		if (i > 0 && cmd[i - 1] == '\\' &&
 		((cmd[i] == '\'' && !dquote && !quote) || (cmd[i] == '"' && !quote)))
 			cmd[i - 1] = 3;
-		else if (i > 0 && cmd[i - 1] == '\\' && cmd[i] == '\\' && !quote)
-			cmd[i] = 3;
-		else if (i > 0 && cmd[i - 1] == '\\' && cmd[i] == '$' && !quote)
-		{
-			cmd[i - 1] = 3;
-			cmd[i] = 4;
-		}
-		else if (i > 0 && cmd[i - 1] == '\\' && cmd[i] == ';' && !quote && !dquote)
-		{
-			cmd[i - 1] = 3;
-			cmd[i] = 2;
-		}
-		else if (i > 0 && cmd[i - 1] == '\\' && cmd[i] == '|' && !quote && !dquote)
-		{
-			cmd[i - 1] = 3;
-			cmd[i] = 5;
-		}
-		else if (i > 0 && cmd[i - 1] == '\\' && cmd[i] == ' ' && !quote && !dquote)
-		{
-			cmd[i - 1] = 3;
-			cmd[i] = 6;
-		}
-		else if (i > 0 && cmd[i - 1] == '\\' && cmd[i] == '>' && !quote && !dquote)
-		{
-			cmd[i - 1] = 3;
-			cmd[i] = 7;
-		}
-		else if (i > 0 && cmd[i - 1] == '\\' && cmd[i] == '<' && !quote && !dquote)
-		{
-			cmd[i - 1] = 3;
-			cmd[i] = 8;
-		}
+		else if (escape_backslashes(i, cmd, quote, dquote))
+			(void)i;
 		else if (cmd[i] == '\'')
 			handle_quote(&quote, &dquote, &cmd[i]);
 		else if (cmd[i] == '"')
@@ -172,4 +166,3 @@ t_cmd	parse_command(char *cmd)
 		decode_command(res.args[i++]);
 	return (res);
 }
-
