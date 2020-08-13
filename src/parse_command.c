@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:47 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/08/10 22:55:29 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/08/11 11:52:50 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,8 @@ void	parse_outputs(t_cmd *cmd)
 			handle_output(mode, cmd, cmd->args[i]);
 		else if (mode == 3)
 			handle_input(cmd, cmd->args[i]);
+		else if (cmd->args[i] == cmd->cmd)
+			mode = 0;
 		if (mode > 0)
 		{
 			free(cmd->args[i]);
@@ -199,4 +201,31 @@ void	parse_outputs(t_cmd *cmd)
 	while (cmd->args[i])
 		i++;
 	cmd->argc = i;
+}
+
+/*
+** Parse inputs and outputs before the command, and remove them.
+** @param	cmd	the command to parse
+*/
+
+void	parse_outputs_before(t_cmd *cmd)
+{
+	int	mode;
+	int	i;
+
+	i = 0;
+	mode = set_mode(&mode, cmd->args[i]);
+	while (mode > 0)
+	{
+		ft_printf("mode: %d\n", mode);
+		if (i % 2 == 0)
+		{
+			i++;
+			mode = 0;
+			set_mode(&mode, cmd->args[i]);
+		}
+		else
+			i++;
+	}
+	cmd->args = (cmd->args + i);
 }

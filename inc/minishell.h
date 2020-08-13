@@ -6,7 +6,7 @@
 /*   By: tmarx <tmarx@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 13:22:26 by tmarx             #+#    #+#             */
-/*   Updated: 2020/08/10 18:29:19 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/08/11 11:51:58 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void			add_output(int *fds, int fd);
 void			redirect(t_cmd cmd);
 void			close_fd(t_cmd cmd);
 void			parse_outputs(t_cmd *cmd);
+void			parse_outputs_before(t_cmd *cmd);
 void			free_cmd(t_cmd cmd);
 void			init_cmd(t_cmd *cmd);
 int				set_mode(int *mode, char *arg);
@@ -83,6 +84,7 @@ int				full_spaces(char *str);
 char			*remove_quotes(char *str);
 void			parse_command_helper(char ***pieces, char *cmd);
 int				check_syntax(char *s);
+void			parse_first_chevron(t_cmd *cmd);
 
 /*
 ** Signals

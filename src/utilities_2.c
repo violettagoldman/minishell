@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/10 12:23:51 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/08/10 22:33:52 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/08/11 10:37:30 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,32 @@ int		check_syntax(char *s)
 		if (s[i] != ' ' && s[i] != '\t' && s[i] != '\n' && s[i] != '\f'
 			&& s[i] != '\r' && s[i] != '\v')
 			last_char = s[i];
+		if (i > 2 && s[i - 2] == '>' && (s[i - 1] == '>' || s[i - 1] == ' ')
+		&& s[i] == '>')
+			return (0);
 		++i;
 	}
 	if (i > 1 && s[i - 1] == '|' && s[i - 2] != '\\')
 		return (0);
 	return (1);
+}
+
+/*
+** Check if an input starts with a chevron, if yes the cmd is the last arg.
+** @param	cmd	the command to process
+*/
+
+void	parse_first_chevron(t_cmd *cmd)
+{
+	int	i;
+
+	if (!cmd->argc)
+		return ;
+	if (!ft_strcmp(cmd->args[0], ">") || !ft_strcmp(cmd->args[0], "<"))
+	{
+		i = cmd->argc - 1;
+		while (!ft_strncmp(cmd->args[i], "-", 1))
+			i--;
+		cmd->cmd = cmd->args[i];
+	}
 }
