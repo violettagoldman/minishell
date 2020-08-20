@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/29 14:58:47 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/08/13 16:30:23 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/08/18 22:10:57 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,12 @@ void	parse_input(char *input)
 	t_cmd	*cmds;
 
 	encode_command(input);
+	input = replace(input);
 	if (!check_syntax(input))
 	{
 		exit_syntax(input);
 		return ;
 	}
-	input = replace(input);
 	i = 0;
 	commands = ft_split(input, ';');
 	free(input);

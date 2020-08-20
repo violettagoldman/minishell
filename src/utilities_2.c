@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/10 12:23:51 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/08/13 13:43:17 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/08/18 22:08:00 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,23 @@ int		check_syntax(char *s)
 		if ((s[i] == '|' || s[i] == ';') && (last_char == '|' ||
 			last_char == ';'))
 			return (0);
+		if ((last_char == '>' && s[i] == '<') || (last_char == '<'
+			&& s[i] == '>'))
+			return (0);
 		if (s[i] != ' ' && s[i] != '\t' && s[i] != '\n' && s[i] != '\f'
 			&& s[i] != '\r' && s[i] != '\v')
 			last_char = s[i];
 		if (i > 2 && s[i - 2] == '>' && (s[i - 1] == '>' || s[i - 1] == ' ')
 		&& s[i] == '>')
 			return (0);
+		if (i > 2 && s[i - 2] == '<' && (s[i - 1] == '<' || s[i - 1] == ' ')
+		&& s[i] == '<')
+			return (0);
 		++i;
 	}
 	if (i > 1 && s[i - 1] == '|' && s[i - 2] != '\\')
+		return (0);
+	if (last_char == '>' || last_char == '<')
 		return (0);
 	return (1);
 }
