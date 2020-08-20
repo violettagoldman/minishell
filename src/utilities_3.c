@@ -13,61 +13,33 @@
 #include "minishell.h"
 
 /*
-** Takes a single command object, and parses command outputs.
+** Parse inputs and outputs, and remove them from the args.
 ** @param	cmd	the command to parse
 */
 
 void	parse_outputs(t_cmd *cmd)
 {
-	int	mode;
 	int	i;
+	int mode;
 
-	i = -1;
-	mode = 0;
-	while (++i < cmd->argc)
+	i = 0;
+	while (i < cmd->argc)
 	{
-		if (set_mode(&mode, cmd->args[i]))
-			(void)mode;
-		else if (mode == 1 || mode == 2)
-			handle_output(mode, cmd, cmd->args[i]);
-		else if (mode == 3)
-			handle_input(cmd, cmd->args[i]);
-		else if (cmd->args[i] == cmd->cmd)
-			mode = 0;
-		if (mode > 0)
+		if ((mode = get_mode(cmd->args[i])) > 0)
 		{
+			if (mode == 3)
+				handle_input(cmd, cmd->args[i + 1]);
+			else
+				handle_output(mode, cmd, cmd->args[i + 1]);
 			free(cmd->args[i]);
 			cmd->args[i] = NULL;
+			free(cmd->args[i + 1]);
+			cmd->args[i + 1] = NULL;
+			i++;
 		}
-	}
-	i = 0;
-	while (cmd->args[i])
 		i++;
-	cmd->argc = i;
-}
-
-/*
-** Parse inputs and outputs before the command, and remove them.
-** @param	cmd	the command to parse
-*/
-
-void	parse_outputs_before(t_cmd *cmd)
-{
-	int	i;
-
-	i = 0;
-	while (cmd->args[i] && get_mode(cmd->args[i]))
-	{
-		if (get_mode(cmd->args[i]) == 3)
-			handle_input(cmd, cmd->args[i + 1]);
-		else
-			handle_output(get_mode(cmd->args[i]), cmd, cmd->args[i + 1]);
-		free(cmd->args[i]);
-		free(cmd->args[i + 1]);
-		i += 2;
 	}
-	cmd->args = cmd->args + i;
-	cmd->offset = i;
+	remove_null_args(cmd);
 }
 
 /*

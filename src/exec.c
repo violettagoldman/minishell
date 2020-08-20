@@ -89,7 +89,7 @@ void	free_cmd(t_cmd cmd)
 	while (cmd.args[i])
 		free(cmd.args[i++]);
 	free(cmd.cmd);
-	free(cmd.args - cmd.offset);
+	free(cmd.args);
 	free(cmd.cmd_abs);
 }
 

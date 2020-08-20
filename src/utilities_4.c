@@ -54,3 +54,30 @@ int		check_two_following_chars(char *s, int i, char last_char)
 		return (0);
 	return (1);
 }
+
+/*
+** Remove NULL args from a command.
+** @param	cmd	the command to parse.
+*/
+
+void	remove_null_args(t_cmd *cmd)
+{
+	char	**args;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	while (i < cmd->argc)
+		j += (cmd->args[i++] != NULL);
+	args = ft_calloc(j + 1, sizeof(char*));
+	j = 0;
+	i = 0;
+	while (i < cmd->argc)
+	{
+		if (cmd->args[i])
+			args[j++] = cmd->args[i];
+		i++;
+	}
+	cmd->args = args;
+}

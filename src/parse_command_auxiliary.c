@@ -24,9 +24,8 @@ void	init_cmd(t_cmd *cmd)
 	cmd->cmd_abs = NULL;
 	cmd->in = 0;
 	parse_first_chevron(cmd);
-	parse_outputs_before(cmd);
-	set_argc(cmd);
 	parse_outputs(cmd);
+	set_argc(cmd);
 	i = -1;
 	while (cmd->args[++i])
 	{

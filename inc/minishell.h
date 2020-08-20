@@ -39,7 +39,6 @@ typedef struct	s_cmd
 	int		argc;
 	int		out[MAX_OUTPUTS];
 	int		in;
-	int		offset;
 }				t_cmd;
 
 typedef struct	s_minishell
@@ -73,7 +72,7 @@ void			add_output(int *fds, int fd);
 void			redirect(t_cmd cmd);
 void			close_fd(t_cmd cmd);
 void			parse_outputs(t_cmd *cmd);
-void			parse_outputs_before(t_cmd *cmd);
+void			remove_null_args(t_cmd *cmd);
 void			free_cmd(t_cmd cmd);
 void			init_cmd(t_cmd *cmd);
 int				set_mode(int *mode, char *arg);
