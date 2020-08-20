@@ -37,3 +37,20 @@ void	decode_command_chevrons(t_cmd *cmd)
 		}
 	}
 }
+
+int		check_two_following_chars(char *s, int i, char last_char)
+{
+	if ((s[i] == '|' || s[i] == ';') && (last_char == '|' ||
+		last_char == ';'))
+		return (0);
+	if ((last_char == '>' && s[i] == '<') || (last_char == '<'
+		&& s[i] == '>'))
+		return (0);
+	if (i > 2 && s[i - 2] == '>' && (s[i - 1] == '>' || s[i - 1] == ' ')
+	&& s[i] == '>')
+		return (0);
+	if (i > 2 && s[i - 2] == '<' && (s[i - 1] == '<' || s[i - 1] == ' ')
+	&& s[i] == '<')
+		return (0);
+	return (1);
+}

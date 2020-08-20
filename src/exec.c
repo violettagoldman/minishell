@@ -57,22 +57,22 @@ int		exec_cmd(t_cmd cmd)
 		exit(127);
 	}
 	else
-		exec_cmd_helper(pid);
+		g_minishell.pid = pid;
 	close_fd(cmd);
 	free_cmd(cmd);
 	return (g_minishell.status == 0);
 }
 
-void	exec_cmd_helper(pid_t pid)
+void	exec_cmd_helper(void)
 {
-	g_minishell.pid = pid;
-	wait(&pid);
-	if (pid == 2)
+	while (wait(&g_minishell.pid) > 0)
+		(void)g_minishell.pid;
+	if (g_minishell.pid == 2)
 		set_status(130);
-	else if (pid == 3)
+	else if (g_minishell.pid == 3)
 		set_status(131);
 	else
-		set_status(WEXITSTATUS(pid));
+		set_status(WEXITSTATUS(g_minishell.pid));
 	g_minishell.pid = 0;
 }
 

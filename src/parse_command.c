@@ -12,6 +12,12 @@
 
 #include "minishell.h"
 
+extern t_minishell g_minishell;
+
+/*
+** Replaces backslash + an escapable character by a fake character.
+*/
+
 int		escape_backslashes(int i, char *cmd, int quote, int dquote)
 {
 	int flag;
@@ -94,6 +100,7 @@ void	parse_input(char *input)
 		j = 0;
 		while (cmds[j].cmd != NULL)
 			exec_cmd(cmds[j++]);
+		exec_cmd_helper();
 		free(cmds);
 	}
 	free(commands);

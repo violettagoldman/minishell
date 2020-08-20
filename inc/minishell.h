@@ -55,7 +55,7 @@ typedef struct	s_minishell
 
 void			prompt(void);
 int				exec_cmd(t_cmd cmd);
-void			exec_cmd_helper(pid_t pid);
+void			exec_cmd_helper(void);
 void			parse_input(char *cmd);
 t_cmd			parse_command(char *cmd);
 void			print_cmd(t_cmd cmd);
@@ -146,5 +146,6 @@ int				get_mode(char *c);
 void			set_escape(char *cmd, int i, char c, int *flag);
 void			exit_syntax(char *input);
 void			decode_command_chevrons(t_cmd *cmd);
+int				check_two_following_chars(char *s, int i, char last_char);
 
 #endif
