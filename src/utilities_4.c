@@ -79,5 +79,6 @@ void	remove_null_args(t_cmd *cmd)
 			args[j++] = cmd->args[i];
 		i++;
 	}
+	free(cmd->args);
 	cmd->args = args;
 }
