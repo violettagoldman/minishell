@@ -122,7 +122,7 @@ void	ft_exit(t_cmd cmd)
 				ok = 0;
 		}
 		if (ok)
-			quit(0, ft_atoi(&cmd.args[1]));
+			quit(1, ft_atoi(&cmd.args[1]));
 		else
 			exit_message(cmd.args[1]);
 	}
