@@ -46,6 +46,7 @@ int		exec_cmd(t_cmd cmd)
 	if (builtin_parent(cmd))
 	{
 		free_cmd(cmd);
+		g_minishell.pid = -1;
 		return (1);
 	}
 	pid = fork();
@@ -65,6 +66,8 @@ int		exec_cmd(t_cmd cmd)
 
 void	exec_cmd_helper(void)
 {
+	if (g_minishell.pid < 0)
+		return ;
 	while (wait(&g_minishell.pid) > 0)
 		(void)g_minishell.pid;
 	if (g_minishell.pid == 2)
