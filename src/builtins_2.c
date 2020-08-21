@@ -53,13 +53,13 @@ void	ft_unset(t_cmd cmd)
 {
 	int i;
 
-	i = 1;
+	i = 0;
 	if (cmd.argc == 1)
 		return ;
 	else
-		while (i < cmd.argc)
+		while (++i < cmd.argc)
 		{
-			if (equality_sign_check(cmd.args[i++]) == -1)
+			if (equality_sign_check(cmd.args[i]) == -1)
 				ft_printf("minishell: unset: `': not a valid identifier\n");
 			else
 				remove_env(cmd.args[i]);
