@@ -74,7 +74,7 @@ int		check_syntax(char *s)
 	}
 	if (i > 1 && s[i - 1] == '|' && s[i - 2] != '\\')
 		return (0);
-	if (last_char == '>' || last_char == '<')
+	if (last_char == '>' || last_char == '<' || last_char == '|')
 		return (0);
 	return (1);
 }
