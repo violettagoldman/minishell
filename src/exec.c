@@ -69,7 +69,7 @@ void	exec_cmd_helper(void)
 		(void)g_minishell.pid;
 	if (g_minishell.pid == 2)
 		set_status(130);
-	else if (g_minishell.pid == 3)
+	else if (g_minishell.pid == 3 || g_minishell.pid == 131)
 		set_status(131);
 	else
 		set_status(WEXITSTATUS(g_minishell.pid));
