@@ -60,9 +60,15 @@ void	ft_unset(t_cmd cmd)
 		while (++i < cmd.argc)
 		{
 			if (equality_sign_check(cmd.args[i]) == -1)
+			{
 				ft_printf("minishell: unset: `': not a valid identifier\n");
+				set_status(1);
+			}
 			else
+			{
 				remove_env(cmd.args[i]);
+				set_status(0);
+			}
 		}
 }
 
@@ -84,6 +90,7 @@ void	ft_env(t_cmd cmd, int print_declare)
 				ft_printf("declare -x ");
 			ft_printf("%s\n", g_minishell.envp[i++]);
 		}
+		set_status(0);
 	}
 	else
 	{

@@ -113,6 +113,8 @@ void	ft_export(t_cmd cmd)
 						cmd.args[i]);
 				set_status(1);
 			}
+			else
+				set_status(0);
 			i++;
 		}
 }
