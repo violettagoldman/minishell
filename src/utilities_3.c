@@ -6,7 +6,7 @@
 /*   By: vgoldman <vgoldman@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 11:39:51 by vgoldman          #+#    #+#             */
-/*   Updated: 2020/08/13 14:58:21 by vgoldman         ###   ########.fr       */
+/*   Updated: 2020/08/22 12:49:45 by vgoldman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	set_argc(t_cmd *cmd)
 void	exit_message(char *arg)
 {
 	ft_printf("minishell: exit: %s: numeric argument required\n", arg);
-	quit(1, 255);
+	quit(1, 2);
 }
 
 void	set_escape(char *cmd, int i, char c, int *flag)
